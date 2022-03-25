@@ -12,16 +12,29 @@ function App() {
         <h3 className="text-center text-white">Song Detail</h3>
 
         <div className="flex items-center flex-wrap gap-4 justify-center">
-          {data.album.images.map((image, index) => (
-            <Card
-              key={index}
-              image={image.url}
-              artist={data.artists[0].name}
-              title={data.album.name}
-              date={data.album.release_date}
-              totalTracks={data.album.total_tracks}
-            />
-          ))}
+          <Card
+            image={data.album.images[0].url}
+            artist={data.artists[0].name}
+            title={data.album.name}
+            date={data.album.release_date}
+            totalTracks={data.album.total_tracks}
+          />
+
+          <Card
+            image={data.album.images[1].url}
+            artist={data.artists[0].name}
+            title={data.album.name}
+            date={data.album.release_date}
+            totalTracks={data.album.total_tracks}
+          />
+
+          <Card
+            image={data.album.images[2].url}
+            artist={data.artists[0].name}
+            title={data.album.name}
+            date={data.album.release_date}
+            totalTracks={data.album.total_tracks}
+          />
         </div>
       </div>
     </div>
