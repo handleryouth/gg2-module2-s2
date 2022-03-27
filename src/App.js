@@ -14,7 +14,7 @@ function App() {
             return (
               <Card
                 key={item.id}
-                artist={item.artists}
+                artist={item.album.artists}
                 date={item.album.release_date}
                 image={item.album.images[0].url}
                 title={item.album.name}
