@@ -1,6 +1,7 @@
 export const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 export const REDIRECT_URL =
-  process.env.REDIRECT_URL || "http://localhost:3000/callback/";
+  process.env.REACT_APP_SPOTIFY_REDIRECT_URL ||
+  "http://localhost:3000/callback/";
 export const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 export const RESPONSE_TYPE = "token";
 export const BASE_URL = "https://api.spotify.com/v1";
