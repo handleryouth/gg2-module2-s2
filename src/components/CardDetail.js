@@ -1,5 +1,3 @@
-import React from "react";
-
 function CardDetail({ title, value }) {
   return (
     <div className="prose-h3:text-white prose-h3:my-0">
