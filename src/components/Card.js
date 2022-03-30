@@ -2,9 +2,9 @@ import CardDetail from "./CardDetail";
 
 function Card({ image, title, artist, date, totalTracks }) {
   return (
-    <div className="border-4 border-gray-200 rounded p-4 w-72  ">
+    <div className="border-4 border-gray-200 rounded p-4 w-72   ">
       <img className="mt-0 h-56 mx-auto" src={image} alt={title} />
-      <div className=" prose-p:my-2 text-center text-white">
+      <div className=" prose-p:my-2 text-center text-white h-[20rem] overflow-auto">
         <CardDetail
           title="Title"
           value={title.length > 20 ? `${title.slice(0, 20)}...` : title}
