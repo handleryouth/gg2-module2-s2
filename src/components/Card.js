@@ -1,6 +1,15 @@
 import CardDetail from "./CardDetail";
 
-function Card({ image, title, artist, date, totalTracks }) {
+function Card({
+  image,
+  title,
+  artist,
+  date,
+  totalTracks,
+  toggleSelected,
+  toggleDeselected,
+  selectCondition,
+}) {
   return (
     <div className="border-4 border-gray-200 rounded p-4 w-72   ">
       <img className="mt-0 h-56 mx-auto" src={image} alt={title} />
@@ -23,8 +32,11 @@ function Card({ image, title, artist, date, totalTracks }) {
         <CardDetail title="Total Tracks" value={totalTracks} />
       </div>
 
-      <button className="rounded hover:bg-black mt-4 text-center h-10 transition-colors bg-transparent w-full border-2 border-white text-white duration-200">
-        Select
+      <button
+        className="rounded hover:bg-black mt-4 text-center h-10 transition-colors bg-transparent w-full border-2 border-white text-white duration-200"
+        onClick={selectCondition ? toggleDeselected : toggleSelected}
+      >
+        {selectCondition ? "Deselect" : "Select"}
       </button>
     </div>
   );
