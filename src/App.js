@@ -8,8 +8,6 @@ const App = () => {
   const [responseData, setResponseData] = useState([]);
   const [selected, setSelected] = useState([]);
 
-  console.log("rendering");
-
   const handleSearch = useCallback(async () => {
     await fetch(
       `${BASE_URL}/search?q=${inputRef.current.value.replaceAll(
