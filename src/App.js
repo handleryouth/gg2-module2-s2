@@ -27,7 +27,8 @@ const App = () => {
       .then((res) => setResponseData(res.data.tracks.items));
   }, [tokenValue]);
 
-  const handleOnSubmitSuccess = useCallback((res, dispatch) => {
+  const handleOnSubmitSuccess = useCallback((res, dispatch, formRef) => {
+    formRef.reset();
     setCreatedPlaylist((prevState) => [...prevState, res.data]);
 
     dispatch("success");
@@ -37,8 +38,9 @@ const App = () => {
   }, []);
 
   const handleCreatePlayList = useCallback(
-    async (event, value, dispatchState) => {
+    async (event, value, dispatchState, formRef) => {
       event.preventDefault();
+
       await requestHelper
         .post(
           `/users/${userData.current && userData.current.id}/playlists`,
@@ -56,7 +58,7 @@ const App = () => {
         )
         .then((res) =>
           res.status === 201
-            ? handleOnSubmitSuccess(res, dispatchState)
+            ? handleOnSubmitSuccess(res, dispatchState, formRef)
             : dispatchState("failed")
         );
     },

@@ -9,6 +9,7 @@ function PlaylistForm({
   customFormClassName,
 }) {
   const [sucess, setSucess] = useState("");
+  const formRef = useRef();
   const playlistData = useRef({
     name: "",
     description: "",
@@ -16,7 +17,10 @@ function PlaylistForm({
 
   return (
     <form
-      onSubmit={(e) => toggleSubmit(e, playlistData.current, setSucess)}
+      ref={formRef}
+      onSubmit={(e) =>
+        toggleSubmit(e, playlistData.current, setSucess, formRef.current)
+      }
       className={`flex flex-col items-center gap-y-4 border-2 py-4 ${customFormClassName}`}
     >
       <Input
