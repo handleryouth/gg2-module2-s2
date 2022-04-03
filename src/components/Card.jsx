@@ -29,7 +29,7 @@ function Card({
           }
         />
         <CardDetail title="Release Date" value={date} />
-        <CardDetail title="Total Tracks" value={totalTracks} />
+        <CardDetail title="Track Number" value={totalTracks} />
       </div>
 
       <button
