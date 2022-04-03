@@ -10,6 +10,7 @@ function PlaylistList({ playlistName, id, selectedSong }) {
   const tokenValue = useContext(tokenContext);
   const [edit, setEdit] = useState(false);
   const [playlistItems, setPlaylistItems] = useState();
+  const [showItems, setShowItems] = useState(true);
 
   const handleLoadPlaylistDetail = useCallback(async () => {
     await requestHelper
@@ -69,9 +70,14 @@ function PlaylistList({ playlistName, id, selectedSong }) {
             toggleFunction={() => setEdit((prevState) => !prevState)}
           />
           <Button title="Add selected song" toggleFunction={handleAddItem} />
+          <Button
+            title={`${showItems ? "Hide" : "Show"} Items`}
+            toggleFunction={() => setShowItems((prevState) => !prevState)}
+          />
         </div>
       </div>
-      {playlistItems &&
+      {showItems &&
+        playlistItems &&
         playlistItems.map((item, index) => (
           <PlaylistDetail
             key={index}
