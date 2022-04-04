@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.2.1",
     "autoprefixer": "^10.4.4",
     "axios": "^0.26.1",
+    "concurrently": "^7.1.0",
     "postcss": "^8.4.12",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -20,10 +21,12 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "concurrently \"react-scripts start\" \"yarn fix\" \"yarn format\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fix": "eslint  ./ --ext js,jsx,ts,tsx",
+    "format": "prettier --write --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +45,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-react": "^7.29.4",
+    "prettier": "^2.6.2"
   }
 }
