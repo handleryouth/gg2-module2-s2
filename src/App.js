@@ -1,16 +1,24 @@
-import { useState, useEffect, useCallback, useRef, createContext } from "react";
-import { Button, Card, PlaylistForm, Navbar, PlaylistList } from "components";
-import { SPOTIFY_URL, requestHelper } from "util";
-
-export const tokenContext = createContext();
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  Button,
+  Card,
+  PlaylistForm,
+  Navbar,
+  PlaylistList,
+  LoginScreen,
+} from "components";
+import { requestHelper } from "util";
+import { addToken } from "library";
 
 const App = () => {
-  const [tokenValue, setTokenValue] = useState("");
   const inputRef = useRef();
   const [createdPlaylist, setCreatedPlaylist] = useState([]);
   const userData = useRef();
   const [responseData, setResponseData] = useState([]);
   const [selected, setSelected] = useState([]);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.token);
 
   const handleSearch = useCallback(async () => {
     await requestHelper
@@ -20,12 +28,9 @@ const App = () => {
           type: "track",
           limit: 10,
         },
-        headers: {
-          Authorization: `Bearer ${tokenValue}`,
-        },
       })
       .then((res) => setResponseData(res.data.tracks.items));
-  }, [tokenValue]);
+  }, []);
 
   const handleOnSubmitSuccess = useCallback((res, dispatch, formRef) => {
     formRef.reset();
@@ -42,27 +47,19 @@ const App = () => {
       event.preventDefault();
 
       await requestHelper
-        .post(
-          `/users/${userData.current && userData.current.id}/playlists`,
-          {
-            name: value.name,
-            description: value.description,
-            public: false,
-            collaborative: false,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${tokenValue}`,
-            },
-          }
-        )
+        .post(`/users/${userData.current && userData.current.id}/playlists`, {
+          name: value.name,
+          description: value.description,
+          public: false,
+          collaborative: false,
+        })
         .then((res) =>
           res.status === 201
             ? handleOnSubmitSuccess(res, dispatchState, formRef)
             : dispatchState("failed")
         );
     },
-    [handleOnSubmitSuccess, tokenValue]
+    [handleOnSubmitSuccess]
   );
 
   const handleGetUserProfile = useCallback(async (value) => {
@@ -84,24 +81,15 @@ const App = () => {
         .find((elem) => elem.startsWith("access_token"))
         .replace("access_token=", "");
     if (token) {
-      handleGetUserProfile(token).then(() => setTokenValue(token));
+      handleGetUserProfile(token).then(() => dispatch(addToken(token)));
     }
-  }, [handleGetUserProfile]);
+  }, [dispatch, handleGetUserProfile]);
 
-  if (!tokenValue) {
-    return (
-      <div className="text-center py-2">
-        <a
-          className="no-underline bg-black rounded text-white py-2 px-4"
-          href={SPOTIFY_URL}
-        >
-          Login
-        </a>
-      </div>
-    );
+  if (!token) {
+    return <LoginScreen />;
   }
   return (
-    <tokenContext.Provider value={tokenValue}>
+    <>
       <Navbar
         display_name={userData.current && userData.current.display_name}
         followers={userData.current && userData.current.followers.total}
@@ -173,7 +161,7 @@ const App = () => {
           </div>
         </div>
       </div>
-    </tokenContext.Provider>
+    </>
   );
 };
 

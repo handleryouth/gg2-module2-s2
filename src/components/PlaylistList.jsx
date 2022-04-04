@@ -1,28 +1,20 @@
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "components";
 import { requestHelper } from "util";
-import { tokenContext } from "App";
 import ItemForm from "./ItemForm";
 import PlaylistDetail from "./PlaylistDetail";
 import Portal from "./Portal";
 
 function PlaylistList({ playlistName, id, selectedSong }) {
-  const tokenValue = useContext(tokenContext);
   const [edit, setEdit] = useState(false);
   const [playlistItems, setPlaylistItems] = useState();
   const [showItems, setShowItems] = useState(true);
 
   const handleLoadPlaylistDetail = useCallback(async () => {
-    await requestHelper
-      .get(`/playlists/${id}/tracks`, {
-        headers: {
-          Authorization: `Bearer ${tokenValue}`,
-        },
-      })
-      .then((res) => {
-        setPlaylistItems(res.data.items);
-      });
-  }, [id, tokenValue]);
+    await requestHelper.get(`/playlists/${id}/tracks`).then((res) => {
+      setPlaylistItems(res.data.items);
+    });
+  }, [id]);
 
   const handleAddItem = useCallback(
     async (e, inputValue, dispatchMessage) => {
@@ -37,27 +29,19 @@ function PlaylistList({ playlistName, id, selectedSong }) {
           .substring(exclamationMark + 1);
 
       await requestHelper
-        .post(
-          `/playlists/${id}/tracks`,
-          {
-            uris: inputValue
-              ? [`spotify:track:${trackId}`]
-              : selectedSong.map((item) => `spotify:track:${item}`),
-            position: inputValue && inputValue.position - 1,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${tokenValue}`,
-            },
-          }
-        )
+        .post(`/playlists/${id}/tracks`, {
+          uris: inputValue
+            ? [`spotify:track:${trackId}`]
+            : selectedSong.map((item) => `spotify:track:${item}`),
+          position: inputValue && inputValue.position - 1,
+        })
         .then(() => {
           handleLoadPlaylistDetail();
           setEdit(false);
         })
         .catch(() => dispatchMessage("Error. Try again"));
     },
-    [handleLoadPlaylistDetail, id, selectedSong, tokenValue]
+    [handleLoadPlaylistDetail, id, selectedSong]
   );
 
   return (
