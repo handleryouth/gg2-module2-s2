@@ -1,158 +1,67 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useEffect, useCallback } from 'react'
 import { requestHelper } from 'util'
-import { Button, Card, PlaylistForm, Navbar, PlaylistList, LoginScreen } from 'components'
-import { addToken } from 'library'
+import { Navbar } from 'components'
+import { addToken, addUserProfile, routesDirectory } from 'library'
+import { Login } from 'pages'
 import { useSelector, useDispatch } from 'react-redux'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 const App = () => {
-  const inputRef = useRef()
-  const [createdPlaylist, setCreatedPlaylist] = useState([])
-  const userData = useRef()
-  const [responseData, setResponseData] = useState([])
-  const [selected, setSelected] = useState([])
   const dispatch = useDispatch()
   const token = useSelector((state) => state.token)
 
-  const handleSearch = useCallback(async () => {
-    await requestHelper
-      .get(`/search`, {
-        params: {
-          q: inputRef.current.value.replaceAll(' ', '+'),
-          type: 'track',
-          limit: 10
-        }
-      })
-      .then((res) => setResponseData(res.data.tracks.items))
-  }, [])
-
-  const handleOnSubmitSuccess = useCallback((res, dispatch, formRef) => {
-    formRef.reset()
-    setCreatedPlaylist((prevState) => [...prevState, res.data])
-
-    dispatch('success')
-    setTimeout(() => {
-      dispatch('')
-    }, 3000)
-  }, [])
-
-  const handleCreatePlayList = useCallback(
-    async (event, value, dispatchState, formRef) => {
-      event.preventDefault()
-
+  const handleGetUserProfile = useCallback(
+    async (value) => {
       await requestHelper
-        .post(`/users/${userData.current && userData.current.id}/playlists`, {
-          name: value.name,
-          description: value.description,
-          public: false,
-          collaborative: false
+        .get('/me', {
+          headers: {
+            Authorization: `Bearer ${value}`
+          }
         })
-        .then((res) =>
-          res.status === 201
-            ? handleOnSubmitSuccess(res, dispatchState, formRef)
-            : dispatchState('failed')
-        )
+        .then((res) => dispatch(addUserProfile(res.data)))
     },
-    [handleOnSubmitSuccess]
+    [dispatch]
   )
 
-  const handleGetUserProfile = useCallback(async (value) => {
-    await requestHelper
-      .get('/me', {
-        headers: {
-          Authorization: `Bearer ${value}`
-        }
-      })
-      .then((res) => (userData.current = res.data))
-  }, [])
+  const tokenValue =
+    window.location.hash &&
+    window.location.hash
+      .substring(1)
+      .split('&')
+      .find((elem) => elem.startsWith('access_token'))
+      .replace('access_token=', '')
 
   useEffect(() => {
-    const token =
-      window.location.hash &&
-      window.location.hash
-        .substring(1)
-        .split('&')
-        .find((elem) => elem.startsWith('access_token'))
-        .replace('access_token=', '')
-    if (token) {
-      handleGetUserProfile(token).then(() => dispatch(addToken(token)))
+    if (tokenValue) {
+      handleGetUserProfile(tokenValue).then(() => dispatch(addToken(tokenValue)))
     }
-  }, [dispatch, handleGetUserProfile])
+  }, [dispatch, handleGetUserProfile, tokenValue])
 
-  if (!token) {
-    return <LoginScreen />
-  }
   return (
-    <>
-      <Navbar
-        display_name={userData.current && userData.current.display_name}
-        followers={userData.current && userData.current.followers.total}
-      />
-      <div>
-        <div>
-          <div className="text-center py-4">
-            <input
-              className="border-2 border-r-0 px-2 focus:outline-none"
-              placeholder="search..."
-              ref={inputRef}
-            />
-            <Button title="Search" toggleFunction={handleSearch} className="rounded-l-none" />
-          </div>
+    <div className="prose !min-w-[320px] !max-w-none bg-[#1c1b22] min-h-screen">
+      <>
+        <Navbar />
 
-          <div>
-            <h3 className="text-center text-white">Song Detail</h3>
-
-            <div className="flex items-center flex-wrap gap-4 justify-center">
-              {responseData.length ? (
-                responseData.map((item) => {
-                  return (
-                    <Card
-                      toggleSelected={() => setSelected((prevState) => [...prevState, item.id])}
-                      selectCondition={selected.includes(item.id)}
-                      toggleDeselected={() => setSelected(selected.filter((id) => id !== item.id))}
-                      key={item.id}
-                      artist={item.artists}
-                      date={item.album.release_date}
-                      image={item.album.images[0].url}
-                      title={item.name}
-                      totalTracks={item.track_number}
-                    />
-                  )
-                })
-              ) : (
-                <p className="text-white">You haven&apos;t search something yet....</p>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div>
-            <h3 className="text-center text-white">Get Playlist / Create Playlist</h3>
-
-            <PlaylistForm toggleSubmit={handleCreatePlayList} />
-          </div>
-
-          <div>
-            <h3 className="text-center text-white">Edit Playlist</h3>
-
-            <div className="flex flex-col gap-y-4 items-center pb-4">
-              {createdPlaylist.length ? (
-                createdPlaylist.map((item, index) => (
-                  <PlaylistList
-                    key={index}
-                    id={item.id}
-                    selectedSong={selected}
-                    playlistName={item.name}
-                  />
-                ))
-              ) : (
-                <p className="text-white">Your playlist will be shown here.</p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+        {token || tokenValue ? (
+          <Switch>
+            {routesDirectory.map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                component={route.component}
+                exact={route.exact}
+              />
+            ))}
+            <Redirect from="*" to="/create-playlist" />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route path="/" component={Login} exact />
+            <Redirect from="*" to="/" />
+          </Switch>
+        )}
+      </>
+    </div>
   )
 }
 

@@ -1,9 +1,15 @@
 {
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
+    "node": true,
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -15,9 +21,9 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "no-console": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": 0,
-    "no-undef": "off",
-    "react/jsx-uses-vars": "error",
     "no-unused-vars": "warn",
     "import/order": [
       "warn",
