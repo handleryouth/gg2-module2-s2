@@ -45,12 +45,7 @@ const App = () => {
         {token || tokenValue ? (
           <Switch>
             {routesDirectory.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                component={route.component}
-                exact={route.exact}
-              />
+              <Route key={index} path={route.path} component={route.component} />
             ))}
             <Redirect from="*" to="/create-playlist" />
           </Switch>
