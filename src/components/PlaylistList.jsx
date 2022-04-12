@@ -48,9 +48,13 @@ function PlaylistList({ playlistName, id, selectedSong }) {
           handleLoadPlaylistDetail()
           setEdit(false)
         })
-        .catch(() => dispatchMessage('Error. Try again'))
+        .catch(() =>
+          dispatchMessage
+            ? dispatchMessage('Error. Try again')
+            : handleGenerateError('Error. Try again')
+        )
     },
-    [handleLoadPlaylistDetail, id, selectedSong]
+    [handleGenerateError, handleLoadPlaylistDetail, id, selectedSong]
   )
 
   return (
