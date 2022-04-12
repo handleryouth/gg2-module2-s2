@@ -9,6 +9,7 @@ function PlaylistList({ playlistName, id, selectedSong }) {
   const [edit, setEdit] = useState(false)
   const [playlistItems, setPlaylistItems] = useState()
   const [showItems, setShowItems] = useState(true)
+  const [errorText, setErrorText] = useState('')
 
   const handleLoadPlaylistDetail = useCallback(async () => {
     await requestHelper.get(`/playlists/${id}/tracks`).then((res) => {
@@ -16,9 +17,17 @@ function PlaylistList({ playlistName, id, selectedSong }) {
     })
   }, [id])
 
+  const handleGenerateError = useCallback((text) => {
+    setErrorText(text)
+
+    setTimeout(() => {
+      setErrorText('')
+    }, 5000)
+  }, [])
+
   const handleAddItem = useCallback(
     async (e, inputValue, dispatchMessage) => {
-      e.preventDefault()
+      e && e.preventDefault()
 
       const questionMark = inputValue && inputValue.uris.lastIndexOf('?')
       const exclamationMark = inputValue && inputValue.uris.lastIndexOf('/')
@@ -53,12 +62,20 @@ function PlaylistList({ playlistName, id, selectedSong }) {
             title="Add song by link"
             toggleFunction={() => setEdit((prevState) => !prevState)}
           />
-          <Button title="Add selected song" toggleFunction={handleAddItem} />
+          <Button
+            title="Add selected song"
+            toggleFunction={() =>
+              selectedSong.length === 0
+                ? handleGenerateError('You have not selected a song yet.')
+                : handleAddItem()
+            }
+          />
           <Button
             title={`${showItems ? 'Hide' : 'Show'} Items`}
             toggleFunction={() => setShowItems((prevState) => !prevState)}
           />
         </div>
+        {errorText && <p className="text-white">{errorText}</p>}
       </div>
       {showItems &&
         playlistItems &&

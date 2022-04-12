@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef } from 'react'
 import { requestHelper } from 'util'
-import { Button, Card, PlaylistForm, PlaylistList } from 'components'
+import { Button, Card, PlaylistForm, PlaylistList, Portal, SongList } from 'components'
 import { useSelector } from 'react-redux'
 
 function Home() {
@@ -53,7 +53,10 @@ function Home() {
   )
 
   return (
-    <div>
+    <>
+      <Portal visible={selected.length > 0}>
+        <SongList selectedSongs={selected} setSelected={setSelected} />
+      </Portal>
       <div>
         <div className="text-center py-4">
           <input
@@ -67,14 +70,24 @@ function Home() {
         <div>
           <h3 className="text-center text-white">Song Detail</h3>
 
-          <div className="flex items-center flex-wrap gap-4 justify-center">
+          <div className="grid  gap-5 justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4">
             {responseData.length ? (
               responseData.map((item) => {
                 return (
                   <Card
-                    toggleSelected={() => setSelected((prevState) => [...prevState, item.id])}
-                    selectCondition={selected.includes(item.id)}
-                    toggleDeselected={() => setSelected(selected.filter((id) => id !== item.id))}
+                    toggleSelected={() =>
+                      setSelected((prevState) => [
+                        ...prevState,
+                        {
+                          name: item.name,
+                          id: item.id
+                        }
+                      ])
+                    }
+                    selectCondition={selected.map((item) => item.id).includes(item.id)}
+                    toggleDeselected={() =>
+                      setSelected(selected.filter((song) => song.id !== item.id))
+                    }
                     key={item.id}
                     artist={item.artists}
                     date={item.album.release_date}
@@ -85,7 +98,9 @@ function Home() {
                 )
               })
             ) : (
-              <p className="text-white">You haven&apos;t search something yet....</p>
+              <p className="text-white col-span-4 text-center ">
+                You haven&apos;t search something yet 😢
+              </p>
             )}
           </div>
         </div>
@@ -107,7 +122,7 @@ function Home() {
                 <PlaylistList
                   key={index}
                   id={item.id}
-                  selectedSong={selected}
+                  selectedSong={selected.map((item) => item.id)}
                   playlistName={item.name}
                 />
               ))
@@ -117,7 +132,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
