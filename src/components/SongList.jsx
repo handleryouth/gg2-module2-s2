@@ -6,11 +6,11 @@ function SongList({ selectedSongs, setSelected }) {
   const [hide, setHide] = useState(false)
 
   return (
-    <div className="bg-black z-10 max-w-[280px]  fixed bottom-3 right-3 rounded p-2 flex justify-end flex-col prose">
+    <div className="bg-black z-10   fixed bottom-3 right-3 rounded p-2 flex justify-end flex-col prose">
       {hide ? (
         <>
           {showMusic && (
-            <div className="flex flex-col gap-5 max-h-52 overflow-y-auto prose-p:my-0  sm:w-[280px] ">
+            <div className="flex flex-col gap-5 max-h-52 overflow-y-auto prose-p:my-0  sm:w-80 ">
               {selectedSongs.map((song, index) => (
                 <div key={index} className="flex items-center justify-between text-white ">
                   <p> {song.name.length > 13 ? `${song.name.slice(0, 13)}...` : song.name}</p>
