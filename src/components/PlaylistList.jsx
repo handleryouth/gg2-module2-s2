@@ -1,15 +1,15 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { requestHelper } from 'util'
-import { Button } from 'components'
+import { Button, Toast } from 'components'
 import ItemForm from './ItemForm'
 import PlaylistDetail from './PlaylistDetail'
 import Portal from './Portal'
 
 function PlaylistList({ playlistName, id, selectedSong }) {
   const [edit, setEdit] = useState(false)
+  const toastRef = useRef()
   const [playlistItems, setPlaylistItems] = useState()
   const [showItems, setShowItems] = useState(true)
-  const [errorText, setErrorText] = useState('')
 
   const handleLoadPlaylistDetail = useCallback(async () => {
     await requestHelper.get(`/playlists/${id}/tracks`).then((res) => {
@@ -17,16 +17,8 @@ function PlaylistList({ playlistName, id, selectedSong }) {
     })
   }, [id])
 
-  const handleGenerateError = useCallback((text) => {
-    setErrorText(text)
-
-    setTimeout(() => {
-      setErrorText('')
-    }, 5000)
-  }, [])
-
   const handleAddItem = useCallback(
-    async (e, inputValue, dispatchMessage) => {
+    async (e, inputValue) => {
       e && e.preventDefault()
 
       const questionMark = inputValue && inputValue.uris.lastIndexOf('?')
@@ -45,53 +37,66 @@ function PlaylistList({ playlistName, id, selectedSong }) {
           position: inputValue && inputValue.position - 1
         })
         .then(() => {
+          toastRef.current.show({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Track added'
+          })
           handleLoadPlaylistDetail()
           setEdit(false)
         })
         .catch(() =>
-          dispatchMessage
-            ? dispatchMessage('Error. Try again')
-            : handleGenerateError('Error. Try again')
+          toastRef.current.show({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Something wrong'
+          })
         )
     },
-    [handleGenerateError, handleLoadPlaylistDetail, id, selectedSong]
+    [handleLoadPlaylistDetail, id, selectedSong]
   )
 
   return (
-    <div className="text-white border-2 min-w-[280px] w-4/5 max-w-[30rem]  rounded p-4">
-      <div className="text-center">
-        <p className="mt-0">Playlist Name: {playlistName}</p>
-        <div className="flex items-center gap-x-2 justify-center">
-          <Button
-            title="Add song by link"
-            toggleFunction={() => setEdit((prevState) => !prevState)}
-          />
-          <Button
-            title="Add selected song"
-            toggleFunction={() =>
-              selectedSong.length === 0
-                ? handleGenerateError('You have not selected a song yet.')
-                : handleAddItem()
-            }
-          />
-          <Button
-            title={`${showItems ? 'Hide' : 'Show'} Items`}
-            toggleFunction={() => setShowItems((prevState) => !prevState)}
-          />
+    <>
+      <Toast customRef={toastRef} />
+      <div className="text-white border-2 min-w-[280px] w-4/5 max-w-[30rem]  rounded p-4">
+        <div className="text-center">
+          <p className="mt-0">Playlist Name: {playlistName}</p>
+          <div className="flex items-center gap-2 justify-center flex-col sm:flex-row">
+            <Button
+              title="Add song by link"
+              toggleFunction={() => setEdit((prevState) => !prevState)}
+            />
+            <Button
+              title="Add selected song"
+              toggleFunction={() =>
+                selectedSong.length === 0
+                  ? toastRef.current.show({
+                      severity: 'error',
+                      summary: 'Error',
+                      detail: 'Please select song'
+                    })
+                  : handleAddItem()
+              }
+            />
+            <Button
+              title={`${showItems ? 'Hide' : 'Show'} Items`}
+              toggleFunction={() => setShowItems((prevState) => !prevState)}
+            />
+          </div>
         </div>
-        {errorText && <p className="text-white">{errorText}</p>}
+        {showItems &&
+          playlistItems &&
+          playlistItems.map((item, index) => (
+            <PlaylistDetail key={index} songTitle={item.track.name} artists={item.track.artists} />
+          ))}
+        {
+          <Portal visible={edit}>
+            <ItemForm toggleSubmit={handleAddItem} toggleCancel={() => setEdit(false)} />
+          </Portal>
+        }
       </div>
-      {showItems &&
-        playlistItems &&
-        playlistItems.map((item, index) => (
-          <PlaylistDetail key={index} songTitle={item.track.name} artists={item.track.artists} />
-        ))}
-      {
-        <Portal visible={edit}>
-          <ItemForm toggleSubmit={handleAddItem} toggleCancel={() => setEdit(false)} />
-        </Portal>
-      }
-    </div>
+    </>
   )
 }
 

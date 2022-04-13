@@ -1,14 +1,35 @@
-import React, { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { requestHelper } from 'util'
-import { Button, Card, PlaylistForm, PlaylistList, Portal, SongList } from 'components'
+import {
+  Button,
+  Card,
+  Pagination,
+  PlaylistForm,
+  PlaylistList,
+  Portal,
+  SongList,
+  Toast
+} from 'components'
+import { ScrollTop } from 'primereact/scrolltop'
 import { useSelector } from 'react-redux'
 
 function Home() {
   const [responseData, setResponseData] = useState([])
   const [selected, setSelected] = useState([])
   const inputRef = useRef()
+  const toastRef = useRef()
+  const page = useRef(0)
+  const [, setForceUpdate] = useState(false)
   const userData = useSelector((state) => state.user)
   const [createdPlaylist, setCreatedPlaylist] = useState([])
+
+  const handleToast = useCallback(({ severity, summary, detail }) => {
+    toastRef.current.show({
+      severity: severity ?? 'success',
+      summary: summary ?? 'Success',
+      detail: detail ?? 'Success'
+    })
+  }, [])
 
   const handleSearch = useCallback(async () => {
     await requestHelper
@@ -16,24 +37,30 @@ function Home() {
         params: {
           q: inputRef.current.value.replaceAll(' ', '+'),
           type: 'track',
-          limit: 10
+          limit: 50
         }
       })
-      .then((res) => setResponseData(res.data.tracks.items))
+      .then((res) => {
+        page.current = 0
+        setResponseData(res.data.tracks.items)
+      })
   }, [])
 
-  const handleOnSubmitSuccess = useCallback((res, dispatch, formRef) => {
-    formRef.reset()
-    setCreatedPlaylist((prevState) => [...prevState, res.data])
+  const handleOnSubmitSuccess = useCallback(
+    (res, formRef) => {
+      formRef.reset()
 
-    dispatch('success')
-    setTimeout(() => {
-      dispatch('')
-    }, 3000)
-  }, [])
+      handleToast({
+        detail: 'Playlist created'
+      })
+
+      setCreatedPlaylist((prevState) => [...prevState, res.data])
+    },
+    [handleToast]
+  )
 
   const handleCreatePlayList = useCallback(
-    async (event, value, dispatchState, formRef) => {
+    async (event, value, formRef) => {
       event.preventDefault()
 
       await requestHelper
@@ -43,13 +70,16 @@ function Home() {
           public: false,
           collaborative: false
         })
-        .then((res) =>
-          res.status === 201
-            ? handleOnSubmitSuccess(res, dispatchState, formRef)
-            : dispatchState('failed')
+        .then((res) => handleOnSubmitSuccess(res, formRef))
+        .catch(() =>
+          handleToast({
+            severity: 'error',
+            summary: 'Playlist Error',
+            detail: 'Something wrong. Please check again'
+          })
         )
     },
-    [handleOnSubmitSuccess, userData.id]
+    [handleOnSubmitSuccess, handleToast, userData.id]
   )
 
   return (
@@ -57,6 +87,8 @@ function Home() {
       <Portal visible={selected.length > 0}>
         <SongList selectedSongs={selected} setSelected={setSelected} />
       </Portal>
+      <Toast customRef={toastRef} />
+      <ScrollTop threshold={250} />
       <div>
         <div className="text-center py-4">
           <input
@@ -69,13 +101,13 @@ function Home() {
 
         <div>
           <h3 className="text-center text-white">Song Detail</h3>
-
-          <div className="grid  gap-5 justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4">
+          <div className="grid  justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4 mx-4">
             {responseData.length ? (
-              responseData.map((item) => {
+              responseData.slice(page.current, page.current + 10).map((item) => {
                 return (
                   <Card
-                    toggleSelected={() =>
+                    toggleSelected={() => {
+                      handleToast({ summary: 'Item added', detail: item.name })
                       setSelected((prevState) => [
                         ...prevState,
                         {
@@ -83,11 +115,12 @@ function Home() {
                           id: item.id
                         }
                       ])
-                    }
+                    }}
                     selectCondition={selected.map((item) => item.id).includes(item.id)}
-                    toggleDeselected={() =>
+                    toggleDeselected={() => {
+                      handleToast({ severity: 'error', summary: 'Item removed', detail: item.name })
                       setSelected(selected.filter((song) => song.id !== item.id))
-                    }
+                    }}
                     key={item.id}
                     artist={item.artists}
                     date={item.album.release_date}
@@ -101,6 +134,18 @@ function Home() {
               <p className="text-white col-span-4 text-center ">
                 You haven&apos;t search something yet 😢
               </p>
+            )}
+          </div>
+          <div className="flex justify-center my-8">
+            {responseData.length > 10 && (
+              <Pagination
+                page={page.current}
+                handlePageChange={(e) => {
+                  page.current = e.first
+                  setForceUpdate((prevState) => !prevState)
+                }}
+                resultsLength={responseData.length}
+              />
             )}
           </div>
         </div>

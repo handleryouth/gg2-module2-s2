@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Button from './Button'
 import Input from './Input'
 
 function PlaylistForm({ toggleSubmit, name, description, customFormClassName }) {
-  const [sucess, setSucess] = useState('')
   const formRef = useRef()
   const playlistData = useRef({
     name: '',
@@ -13,11 +12,12 @@ function PlaylistForm({ toggleSubmit, name, description, customFormClassName }) 
   return (
     <form
       ref={formRef}
-      onSubmit={(e) => toggleSubmit(e, playlistData.current, setSucess, formRef.current)}
+      onSubmit={(e) => toggleSubmit(e, playlistData.current, formRef.current)}
       className={`flex flex-col items-center gap-y-4 border-2 py-4 ${customFormClassName}`}>
       <Input
         label="Playlist Name"
         minLength={10}
+        required
         placeholder={name ?? 'Enter your playlist name'}
         toggleChange={(e) => (playlistData.current.name = e.target.value)}
       />
@@ -29,7 +29,6 @@ function PlaylistForm({ toggleSubmit, name, description, customFormClassName }) 
       />
 
       <Button title="Submit" type="submit" />
-      {sucess && <p>Playlist {sucess}</p>}
     </form>
   )
 }
