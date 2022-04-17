@@ -6,13 +6,9 @@
     "@fontsource/inter": "^4.5.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/typography": "^0.5.2",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
     "autoprefixer": "^10.4.4",
     "axios": "^0.26.1",
     "concurrently": "^7.1.0",
-    "eslint-plugin-react-hooks": "^4.4.0",
     "postcss": "^8.4.12",
     "primereact": "^8.0.0-rc.1",
     "react": "^17.0.2",
@@ -21,6 +17,7 @@
     "react-router-dom": "5.3.0",
     "react-scripts": "5.0.0",
     "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.3",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -29,7 +26,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
-    "format": "prettier --write --config ./.prettierrc"
+    "format": "prettier --write --config ./.prettierrc",
+    "husky-install": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -50,9 +48,24 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^8.12.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.24",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.13.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-react": "^7.29.4",
-    "prettier": "^2.6.2"
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "msw": "^0.39.2",
+    "prettier": "^2.6.2",
+    "pretty-quick": "^3.1.3"
   }
 }

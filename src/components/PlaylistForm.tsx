@@ -1,18 +1,20 @@
 import { useRef } from 'react'
+import { PlaylistDataProps, PlaylistFormProps } from 'types'
 import Button from './Button'
 import Input from './Input'
 
-function PlaylistForm({ toggleSubmit, name, description, customFormClassName }) {
-  const formRef = useRef()
-  const playlistData = useRef({
+function PlaylistForm({ toggleSubmit, name, description, customFormClassName }: PlaylistFormProps) {
+  const formRef = useRef<HTMLFormElement | null>(null)
+  const playlistData = useRef<PlaylistDataProps>({
     name: '',
     description: ''
   })
 
   return (
     <form
+      data-testid="playlist-form"
       ref={formRef}
-      onSubmit={(e) => toggleSubmit(e, playlistData.current, formRef.current)}
+      onSubmit={(e) => toggleSubmit(e, playlistData.current, formRef.current!)}
       className={`flex flex-col items-center gap-y-4 border-2 py-4 ${customFormClassName}`}>
       <Input
         label="Playlist Name"

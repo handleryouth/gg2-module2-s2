@@ -1,24 +1,30 @@
-import { useState, useCallback, useRef } from 'react'
-import { requestHelper } from 'util'
-import { Button, Toast } from 'components'
+import { useState, useCallback, useRef, FormEvent, SetStateAction } from 'react'
+import requestHelper from 'util/requestHelper'
+import { Button } from 'components'
+import { Toast } from 'primereact/toast'
+import { InputFormRef, PlaylistItems, PlaylistListProps } from 'types'
+import CustomToast from './CustomToast'
 import ItemForm from './ItemForm'
 import PlaylistDetail from './PlaylistDetail'
 import Portal from './Portal'
 
-function PlaylistList({ playlistName, id, selectedSong }) {
+function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
   const [edit, setEdit] = useState(false)
-  const toastRef = useRef()
-  const [playlistItems, setPlaylistItems] = useState()
+  const toastRef = useRef<Toast>(null)
+  const [playlistItems, setPlaylistItems] = useState<PlaylistItems[]>([])
+
   const [showItems, setShowItems] = useState(true)
 
   const handleLoadPlaylistDetail = useCallback(async () => {
-    await requestHelper.get(`/playlists/${id}/tracks`).then((res) => {
-      setPlaylistItems(res.data.items)
-    })
+    await requestHelper
+      .get(`/playlists/${id}/tracks`)
+      .then((res: { data: { items: SetStateAction<PlaylistItems[]> } }) => {
+        setPlaylistItems(res.data.items)
+      })
   }, [id])
 
   const handleAddItem = useCallback(
-    async (e, inputValue) => {
+    async (e?: FormEvent<HTMLFormElement>, inputValue?: InputFormRef) => {
       e && e.preventDefault()
 
       const questionMark = inputValue && inputValue.uris.lastIndexOf('?')
@@ -26,18 +32,18 @@ function PlaylistList({ playlistName, id, selectedSong }) {
       const trackId =
         inputValue &&
         inputValue.uris
-          .replace(inputValue.uris.substring(questionMark), '')
-          .substring(exclamationMark + 1)
+          .replace(inputValue.uris.substring(questionMark!), '')
+          .substring(exclamationMark! + 1)
 
       await requestHelper
         .post(`/playlists/${id}/tracks`, {
           uris: inputValue
             ? [`spotify:track:${trackId}`]
             : selectedSong.map((item) => `spotify:track:${item}`),
-          position: inputValue && inputValue.position - 1
+          position: parseInt(inputValue!.position) - 1
         })
         .then(() => {
-          toastRef.current.show({
+          toastRef.current!.show({
             severity: 'success',
             summary: 'Success',
             detail: 'Track added'
@@ -46,7 +52,7 @@ function PlaylistList({ playlistName, id, selectedSong }) {
           setEdit(false)
         })
         .catch(() =>
-          toastRef.current.show({
+          toastRef.current!.show({
             severity: 'error',
             summary: 'Error',
             detail: 'Something wrong'
@@ -58,8 +64,10 @@ function PlaylistList({ playlistName, id, selectedSong }) {
 
   return (
     <>
-      <Toast customRef={toastRef} />
-      <div className="text-white border-2 min-w-[280px] w-4/5 max-w-[30rem]  rounded p-4">
+      <CustomToast customRef={toastRef} />
+      <div
+        className="text-white border-2 min-w-[280px] w-4/5 max-w-[30rem]  rounded p-4"
+        data-testid="playlist-list">
         <div className="text-center">
           <p className="mt-0">Playlist Name: {playlistName}</p>
           <div className="flex items-center gap-2 justify-center flex-col sm:flex-row">
@@ -71,7 +79,7 @@ function PlaylistList({ playlistName, id, selectedSong }) {
               title="Add selected song"
               toggleFunction={() =>
                 selectedSong.length === 0
-                  ? toastRef.current.show({
+                  ? toastRef.current!.show({
                       severity: 'error',
                       summary: 'Error',
                       detail: 'Please select song'

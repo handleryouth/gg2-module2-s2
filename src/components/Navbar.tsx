@@ -1,9 +1,12 @@
+import { RootState } from 'library'
 import { useSelector } from 'react-redux'
 
 function Navbar() {
-  const userData = useSelector((state) => state.user)
+  const userData = useSelector((state: RootState) => state.user)
   return (
-    <div className="z-10 sticky top-0 bg-[#1c1b22] border-b-2 w-full flex items-center justify-between px-4 text-white">
+    <nav
+      className="z-10 sticky top-0 bg-[#1c1b22] border-b-2 w-full flex items-center justify-between px-4 text-white"
+      data-testid="navbar">
       <div className="flex flex-col font-bold">
         <span>{userData.display_name || 'Unknown'}</span>
         <span>{userData.followers.total || 0} followers</span>
@@ -16,7 +19,7 @@ function Navbar() {
         }
         alt="User Profile"
       />
-    </div>
+    </nav>
   )
 }
 

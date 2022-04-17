@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react'
-import { requestHelper } from 'util'
+import requestHelper from 'util/requestHelper'
 import {
   Button,
   Card,
@@ -8,23 +8,26 @@ import {
   PlaylistList,
   Portal,
   SongList,
-  Toast
+  CustomToast
 } from 'components'
+import { RootState } from 'library'
 import { ScrollTop } from 'primereact/scrolltop'
+import { Toast } from 'primereact/toast'
 import { useSelector } from 'react-redux'
+import { PlaylistProps, SpotifySearchResponse } from 'types'
 
 function Home() {
-  const [responseData, setResponseData] = useState([])
-  const [selected, setSelected] = useState([])
-  const inputRef = useRef()
-  const toastRef = useRef()
+  const [responseData, setResponseData] = useState<SpotifySearchResponse[]>([])
+  const [selected, setSelected] = useState<PlaylistProps[]>([])
+  const inputRef = useRef<HTMLInputElement>(null)
+  const toastRef = useRef<Toast>(null)
   const page = useRef(0)
   const [, setForceUpdate] = useState(false)
-  const userData = useSelector((state) => state.user)
-  const [createdPlaylist, setCreatedPlaylist] = useState([])
+  const userData = useSelector((state: RootState) => state.user)
+  const [createdPlaylist, setCreatedPlaylist] = useState<PlaylistProps[]>([])
 
   const handleToast = useCallback(({ severity, summary, detail }) => {
-    toastRef.current.show({
+    toastRef.current!.show({
       severity: severity ?? 'success',
       summary: summary ?? 'Success',
       detail: detail ?? 'Success'
@@ -35,7 +38,7 @@ function Home() {
     await requestHelper
       .get(`/search`, {
         params: {
-          q: inputRef.current.value.replaceAll(' ', '+'),
+          q: inputRef.current!.value.replaceAll(' ', '+'),
           type: 'track',
           limit: 50
         }
@@ -87,7 +90,7 @@ function Home() {
       <Portal visible={selected.length > 0}>
         <SongList selectedSongs={selected} setSelected={setSelected} />
       </Portal>
-      <Toast customRef={toastRef} />
+      <CustomToast customRef={toastRef} />
       <ScrollTop threshold={250} />
       <div>
         <div className="text-center py-4">
@@ -101,7 +104,7 @@ function Home() {
 
         <div>
           <h3 className="text-center text-white">Song Detail</h3>
-          <div className="grid  justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4 mx-4">
+          <div className="grid  justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4 gap-8 mx-4">
             {responseData.length ? (
               responseData.slice(page.current, page.current + 10).map((item) => {
                 return (

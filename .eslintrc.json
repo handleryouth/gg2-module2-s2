@@ -4,12 +4,19 @@
       "version": "detect"
     }
   },
+  "parser": "@typescript-eslint/parser",
   "env": {
     "node": true,
     "browser": true,
     "es2021": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -17,7 +24,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "import"],
+  "plugins": ["react", "import", "react-hooks", "@typescript-eslint"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "no-console": "warn",
@@ -25,6 +32,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": 0,
     "no-unused-vars": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "import/order": [
       "warn",
       {
@@ -44,5 +52,6 @@
         "pathGroupsExcludedImportTypes": ["react"]
       }
     ]
-  }
+  },
+  "ignorePatterns": "node_modules/"
 }

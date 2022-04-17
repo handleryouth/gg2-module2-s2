@@ -1,9 +1,10 @@
 import { useRef } from 'react'
+import { InputFormRef, ItemFormProps } from 'types'
 import Button from './Button'
 import Input from './Input'
 
-function ItemForm({ toggleSubmit, toggleCancel }) {
-  const inputForm = useRef({
+function ItemForm({ toggleSubmit, toggleCancel }: ItemFormProps) {
+  const inputForm = useRef<InputFormRef>({
     uris: '',
     position: ''
   })
@@ -15,6 +16,7 @@ function ItemForm({ toggleSubmit, toggleCancel }) {
           onSubmit={(e) => toggleSubmit(e, inputForm.current)}
           className="max-w-none bg-blue-900 p-4 rounded prose flex flex-col gap-y-4 items-center">
           <Input
+            data-testid="custom-input"
             label="Song link"
             placeholder="Fill with song link"
             toggleChange={(e) => (inputForm.current.uris = e.target.value)}
@@ -22,6 +24,7 @@ function ItemForm({ toggleSubmit, toggleCancel }) {
 
           <Input
             label="Position"
+            data-testid="custom-input"
             placeholder="Song position in playlist"
             toggleChange={(e) => (inputForm.current.position = e.target.value)}
           />

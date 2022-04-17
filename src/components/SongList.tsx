@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { SongListProps } from 'types/component'
 import Button from './Button'
 
-function SongList({ selectedSongs, setSelected }) {
+function SongList({ selectedSongs, setSelected }: SongListProps) {
   const [showMusic, setShowMusic] = useState(true)
   const [hide, setHide] = useState(false)
 
   return (
-    <div className="bg-black z-10   fixed bottom-3 right-3 rounded p-2 flex justify-end flex-col prose">
+    <div
+      className="bg-black z-10   fixed bottom-3 right-3 rounded p-2 flex justify-end flex-col prose"
+      data-testid="song-list">
       {hide ? (
         <>
           {showMusic && (

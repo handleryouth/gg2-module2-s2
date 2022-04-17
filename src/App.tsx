@@ -1,14 +1,14 @@
 import { useEffect, useCallback } from 'react'
-import { requestHelper } from 'util'
+import requestHelper from 'util/requestHelper'
 import { Navbar } from 'components'
-import { addToken, addUserProfile, routesDirectory } from 'library'
+import { addToken, addUserProfile, RootState, routesDirectory } from 'library'
 import { Login } from 'pages'
 import { useSelector, useDispatch } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.token)
+  const token = useSelector((state: RootState) => state.token)
 
   const handleGetUserProfile = useCallback(
     async (value) => {
@@ -28,7 +28,7 @@ const App = () => {
     window.location.hash
       .substring(1)
       .split('&')
-      .find((elem) => elem.startsWith('access_token'))
+      .find((elem) => elem.startsWith('access_token'))!
       .replace('access_token=', '')
 
   useEffect(() => {

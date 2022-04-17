@@ -1,4 +1,4 @@
-import { SPOTIFY_URL } from 'util'
+import { SPOTIFY_URL } from 'util/spotify'
 import { Button } from 'components'
 
 function Login() {

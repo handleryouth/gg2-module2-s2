@@ -1,4 +1,6 @@
-function Input({ label, placeholder, toggleChange, minLength, required }) {
+import { InputProps } from 'types'
+
+function Input({ label, placeholder, toggleChange, minLength, required }: InputProps) {
   const id = label.replace(' ', '').toLowerCase()
   return (
     <div className="flex flex-col">
@@ -6,6 +8,7 @@ function Input({ label, placeholder, toggleChange, minLength, required }) {
         {label}
       </label>
       <input
+        data-testid="custom-input"
         className="w-64 p-2 rounded"
         id={id}
         required={required}
