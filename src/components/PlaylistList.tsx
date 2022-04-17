@@ -40,7 +40,7 @@ function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
           uris: inputValue
             ? [`spotify:track:${trackId}`]
             : selectedSong.map((item) => `spotify:track:${item}`),
-          position: parseInt(inputValue!.position) - 1
+          position: inputValue && parseInt(inputValue!.position) - 1
         })
         .then(() => {
           toastRef.current!.show({
