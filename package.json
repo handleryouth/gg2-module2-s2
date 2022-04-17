@@ -23,11 +23,23 @@
   "scripts": {
     "dev": "concurrently \"react-scripts start\" \"yarn fix\" \"yarn format\"",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "test:watch": "react-scripts test",
+    "test": "react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject ",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
     "format": "prettier --write --config ./.prettierrc",
-    "husky-install": "husky install"
+    "husky-install": "husky install",
+    "commit": "cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn fix && yarn format && yarn test"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -58,11 +70,14 @@
     "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "commitizen": "^4.2.4",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.13.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
     "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.8",
     "msw": "^0.39.2",
     "prettier": "^2.6.2",

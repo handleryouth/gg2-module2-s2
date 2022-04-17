@@ -3,3 +3,4 @@
 
 yarn fix
 npx pretty-quick --staged
+yarn test
