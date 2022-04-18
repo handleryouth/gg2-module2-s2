@@ -10,7 +10,7 @@ export interface ButtonProps {
   type?: 'button' | 'submit' | 'reset' | undefined
 }
 
-export interface CardDetailProps {
+export interface SectionProps {
   title: string
   value: string | ReactNode
 }
@@ -23,13 +23,14 @@ export interface ArtistProps {
 
 export interface CustomCardProps {
   image: string
+  id: string
   title: string
   artist: ArtistProps[]
   date: string
   totalTracks: number
-  toggleSelected: () => void
-  toggleDeselected: () => void
-  selectCondition: boolean
+  toggleSelected?: () => void
+  toggleDeselected?: () => void
+  selectCondition?: boolean
 }
 
 export interface PaginationProps {
@@ -43,7 +44,7 @@ export interface CustomToastProps {
 }
 
 export interface InputProps {
-  label: string
+  label?: string
   placeholder?: string
   toggleChange: (event: ChangeEvent<HTMLInputElement>) => void
   minLength?: number

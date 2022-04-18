@@ -21,3 +21,21 @@ export interface SpotifySearchResponse {
     images: ImageData[]
   }
 }
+
+export interface AlbumProps {
+  album_type: string
+  name: string
+  artists: ArtistProps[]
+  id: string
+  release_date: string
+  total_tracks: number
+  images: ImageData[]
+  tracks: { items: SpotifySearchResponse[] }
+}
+
+export interface AlbumsResponseData {
+  items: AlbumProps[]
+  limit: number
+  offset: number
+  total: number
+}

@@ -1,10 +1,10 @@
 import { useEffect, useCallback } from 'react'
-import requestHelper from 'util/requestHelper'
-import { Navbar } from 'components'
+import { Layout } from 'components'
 import { addToken, addUserProfile, RootState, routesDirectory } from 'library'
 import { Login } from 'pages'
 import { useSelector, useDispatch } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { requestHelper } from 'utils'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -40,14 +40,19 @@ const App = () => {
   return (
     <div className="prose !min-w-[320px] !max-w-none bg-[#1c1b22] min-h-screen">
       <>
-        <Navbar />
-
         {token || tokenValue ? (
           <Switch>
-            {routesDirectory.map((route, index) => (
-              <Route key={index} path={route.path} component={route.component} />
-            ))}
-            <Redirect from="*" to="/create-playlist" />
+            <Layout>
+              {routesDirectory.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  component={route.component}
+                  exact={route.exact}
+                />
+              ))}
+              <Redirect from="*" to="/create-playlist" />
+            </Layout>
           </Switch>
         ) : (
           <Switch>

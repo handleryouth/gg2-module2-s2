@@ -33,6 +33,7 @@
     "react/prop-types": 0,
     "no-unused-vars": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/ban-types": "off",
     "import/order": [
       "warn",
       {
