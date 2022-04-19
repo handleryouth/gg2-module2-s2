@@ -58,4 +58,24 @@ describe('Rendering card', () => {
     )
     expect(getByTestId('card')).toBeInTheDocument()
   })
+
+  it('should render card ', async () => {
+    const data = await axios.get('/mockapi').then((res) => res.data)
+
+    const { getByTestId } = render(
+      <CustomCard
+        id={(data as SpotifySearchResponse).id}
+        artist={(data as SpotifySearchResponse).artists}
+        date={(data as SpotifySearchResponse).album.release_date}
+        image={(data as SpotifySearchResponse).album.images[0].url}
+        title={(data as SpotifySearchResponse).name}
+        totalTracks={(data as SpotifySearchResponse).track_number}
+        toggleSelected={() => null}
+        toggleDeselected={() => null}
+        selectCondition={false}
+        allowSelect
+      />
+    )
+    expect(getByTestId('button')).toBeInTheDocument()
+  })
 })

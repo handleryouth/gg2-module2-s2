@@ -32,6 +32,7 @@ export interface CustomCardProps {
   toggleDeselected?: () => void
   selectCondition?: boolean
   enabledDetails?: boolean
+  allowSelect?: boolean
 }
 
 export interface PaginationProps {

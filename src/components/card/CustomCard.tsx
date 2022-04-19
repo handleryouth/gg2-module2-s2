@@ -15,9 +15,11 @@ function CustomCard({
   toggleSelected,
   toggleDeselected,
   enabledDetails,
-  selectCondition
+  selectCondition,
+  allowSelect
 }: CustomCardProps) {
   const history = useHistory()
+
   return (
     <div onClick={() => (enabledDetails ? history.push(`albums/${id}`) : null)}>
       <Card
@@ -43,7 +45,7 @@ function CustomCard({
         }
         className="bg-black w-[280px] sm:w-[300px]  prose"
         footer={
-          selectCondition && (
+          allowSelect && (
             <Button
               className="w-full h-10"
               toggleFunction={selectCondition ? toggleDeselected : toggleSelected}>

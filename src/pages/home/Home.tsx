@@ -121,6 +121,7 @@ function Home() {
                         }
                       ])
                     }}
+                    allowSelect
                     selectCondition={selected.map((item) => item.id).includes(item.id)}
                     toggleDeselected={() => {
                       handleToast({ severity: 'error', summary: 'Item removed', detail: item.name })
