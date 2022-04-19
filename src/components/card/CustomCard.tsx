@@ -14,11 +14,12 @@ function CustomCard({
   totalTracks,
   toggleSelected,
   toggleDeselected,
+  enabledDetails,
   selectCondition
 }: CustomCardProps) {
   const history = useHistory()
   return (
-    <div onClick={() => history.push(`albums/${id}`)}>
+    <div onClick={() => (enabledDetails ? history.push(`albums/${id}`) : null)}>
       <Card
         data-testid="card"
         title={
@@ -44,10 +45,10 @@ function CustomCard({
         footer={
           selectCondition && (
             <Button
-              title={selectCondition ? 'Deselect' : 'Select'}
               className="w-full h-10"
-              toggleFunction={selectCondition ? toggleDeselected : toggleSelected}
-            />
+              toggleFunction={selectCondition ? toggleDeselected : toggleSelected}>
+              {selectCondition ? 'Deselect' : 'Select'}
+            </Button>
           )
         }
         header={<img className=" h-72  my-0 rounded" src={image} alt={title} />}>

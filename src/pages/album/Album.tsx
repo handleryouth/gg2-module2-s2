@@ -42,9 +42,10 @@ const Albums = () => {
         />
       </div>
 
-      <div className="flex flex-wrap gap-4 justify-center mt-8">
+      <div className="flex flex-wrap gap-4 justify-center mt-8 min-h-screen">
         {responseData.items.map((album) => (
           <Card
+            enabledDetails
             key={album.id}
             id={album.id}
             artist={album.artists}

@@ -71,12 +71,10 @@ function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
         <div className="text-center">
           <p className="mt-0">Playlist Name: {playlistName}</p>
           <div className="flex items-center gap-2 justify-center flex-col sm:flex-row">
+            <Button toggleFunction={() => setEdit((prevState) => !prevState)}>
+              Add song by link
+            </Button>
             <Button
-              title="Add song by link"
-              toggleFunction={() => setEdit((prevState) => !prevState)}
-            />
-            <Button
-              title="Add selected song"
               toggleFunction={() =>
                 selectedSong.length === 0
                   ? toastRef.current!.show({
@@ -85,12 +83,12 @@ function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
                       detail: 'Please select song'
                     })
                   : handleAddItem()
-              }
-            />
-            <Button
-              title={`${showItems ? 'Hide' : 'Show'} Items`}
-              toggleFunction={() => setShowItems((prevState) => !prevState)}
-            />
+              }>
+              Add selected song
+            </Button>
+            <Button toggleFunction={() => setShowItems((prevState) => !prevState)}>
+              {`${showItems ? 'Hide' : 'Show'} Items`}
+            </Button>
           </div>
         </div>
         {showItems &&

@@ -30,7 +30,7 @@ function PlaylistForm({ toggleSubmit, name, description, customFormClassName }: 
         toggleChange={(e) => (playlistData.current.description = e.target.value)}
       />
 
-      <Button title="Submit" type="submit" />
+      <Button type="submit">Submit</Button>
     </form>
   )
 }

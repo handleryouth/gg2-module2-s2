@@ -10,7 +10,6 @@ import {
   CustomToast
 } from 'components'
 import { RootState } from 'library'
-import { ScrollTop } from 'primereact/scrolltop'
 import { Toast } from 'primereact/toast'
 import { useSelector } from 'react-redux'
 import { PlaylistProps, SpotifySearchResponse } from 'types'
@@ -91,22 +90,25 @@ function Home() {
         <SongList selectedSongs={selected} setSelected={setSelected} />
       </Portal>
       <CustomToast customRef={toastRef} />
-      <ScrollTop threshold={250} />
+
       <div>
-        <div className="text-center py-4">
+        <div className="text-center py-4 flex flex-col sm:flex-row justify-center items-center gap-y-4">
           <input
             className="border-2 border-r-0 px-2 focus:outline-none"
             placeholder="search..."
             ref={inputRef}
           />
-          <Button title="Search" toggleFunction={handleSearch} className="rounded-l-none" />
+          <Button toggleFunction={handleSearch} className=" sm:w-auto rounded sm:rounded-l-none">
+            Search
+          </Button>
         </div>
 
         <div>
           <h3 className="text-center text-white">Song Detail</h3>
-          <div className="grid  justify-items-center grid-cols-grid-auto-fit-songs xl:grid-cols-4 my-4 gap-8 mx-4">
-            {responseData.length ? (
-              responseData.slice(page.current, page.current + 10).map((item) => {
+
+          {responseData.length ? (
+            <div className="grid  justify-center grid-cols-grid-auto-fit-songs xl:grid-cols-3 my-4 gap-8  mx-4">
+              {responseData.slice(page.current, page.current + 10).map((item) => {
                 return (
                   <Card
                     toggleSelected={() => {
@@ -133,13 +135,12 @@ function Home() {
                     totalTracks={item.track_number}
                   />
                 )
-              })
-            ) : (
-              <p className="text-white col-span-4 text-center ">
-                You haven&apos;t search something yet 😢
-              </p>
-            )}
-          </div>
+              })}
+            </div>
+          ) : (
+            <p className="text-white  text-center ">You haven&apos;t search something yet 😢</p>
+          )}
+
           <div className="flex justify-center my-8">
             {responseData.length > 10 && (
               <Pagination

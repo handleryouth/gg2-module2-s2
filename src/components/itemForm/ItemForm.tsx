@@ -28,8 +28,10 @@ function ItemForm({ toggleSubmit, toggleCancel }: ItemFormProps) {
             placeholder="Song position in playlist"
             toggleChange={(e) => (inputForm.current.position = e.target.value)}
           />
-          <Button title="Add Item to Playlist" type="submit" />
-          <Button title="Cancel" type="button" toggleFunction={toggleCancel} />
+          <Button type="submit">Add Item to Playlist</Button>
+          <Button type="button" toggleFunction={toggleCancel}>
+            Cancel
+          </Button>
         </form>
       </div>
     </div>

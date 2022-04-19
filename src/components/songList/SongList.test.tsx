@@ -1,6 +1,6 @@
-import { useState as useStateMock } from 'react'
 import '@testing-library/jest-dom'
-import { render, fireEvent } from '@testing-library/react'
+import React from 'react'
+import { render, cleanup } from '@testing-library/react'
 import SongList from './SongList'
 
 const selectedSong = [
@@ -15,21 +15,10 @@ const selectedSong = [
 ]
 
 afterEach(() => {
-  jest.clearAllMocks()
+  cleanup()
 })
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn()
-}))
-
 describe('Songlist rendered', () => {
-  const setState = jest.fn()
-  beforeEach(() => {
-    // eslint-disable-next-line @typescript-eslint/no-extra-semi
-    ;(useStateMock as jest.Mock).mockImplementation((init) => [init, setState])
-  })
-
   it('should rendered', () => {
     const handleSelected = jest.fn()
 
@@ -40,14 +29,13 @@ describe('Songlist rendered', () => {
   })
 
   it('hiding state must be changed', () => {
-    const handleSelected = jest.fn()
+    const setStateSpy = jest
+      .spyOn(React, 'useState')
+      .mockImplementationOnce(() => [true, jest.fn()]) // to make the state change
+      .mockImplementationOnce(() => [null, () => null]) //to make sure that the second call is not called
 
-    const { getAllByTestId } = render(
-      <SongList selectedSongs={selectedSong} setSelected={handleSelected} />
-    )
-    const button = getAllByTestId('button')
-    fireEvent.click(button[0])
-    fireEvent.click(button[0])
-    expect(setState).toBeCalledTimes(2)
+    render(<SongList selectedSongs={selectedSong} setSelected={jest.fn()} />)
+
+    expect(setStateSpy).toBeCalledTimes(2)
   })
 })

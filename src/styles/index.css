@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .custom-link {
+    @apply text-white  cursor-pointer  transition-colors text-xs uppercase font-bold hover:text-blue-700 no-underline;
+  }
+}

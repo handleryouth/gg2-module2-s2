@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { ChangeEvent, Dispatch, ReactNode, RefObject, SetStateAction } from 'react'
+import { ChangeEvent, Dispatch, HTMLProps, ReactNode, RefObject, SetStateAction } from 'react'
 import { PaginatorPageState } from 'primereact/paginator'
 import { Toast } from 'primereact/toast'
 
 export interface ButtonProps {
   className?: string
-  title: string
+  children: ReactNode | string
   toggleFunction?: () => void
   type?: 'button' | 'submit' | 'reset' | undefined
 }
@@ -31,6 +31,7 @@ export interface CustomCardProps {
   toggleSelected?: () => void
   toggleDeselected?: () => void
   selectCondition?: boolean
+  enabledDetails?: boolean
 }
 
 export interface PaginationProps {
@@ -43,12 +44,10 @@ export interface CustomToastProps {
   customRef: RefObject<Toast>
 }
 
-export interface InputProps {
+export interface InputProps extends HTMLProps<HTMLInputElement> {
   label?: string
-  placeholder?: string
-  toggleChange: (event: ChangeEvent<HTMLInputElement>) => void
-  minLength?: number
-  required?: boolean
+  innerRef?: RefObject<HTMLInputElement>
+  toggleChange?: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export interface InputFormRef {

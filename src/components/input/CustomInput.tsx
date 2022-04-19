@@ -1,6 +1,6 @@
 import { InputProps } from 'types'
 
-function Input({ label, placeholder, toggleChange, minLength, required }: InputProps) {
+const Input = ({ label, toggleChange, className, innerRef, ...rest }: InputProps) => {
   const id = label && label.replace(' ', '').toLowerCase()
   return (
     <div className="flex flex-col">
@@ -12,12 +12,11 @@ function Input({ label, placeholder, toggleChange, minLength, required }: InputP
 
       <input
         data-testid="custom-input"
-        className="w-64 p-2 rounded"
-        id={id}
-        required={required}
         onChange={toggleChange}
-        placeholder={placeholder}
-        minLength={minLength}
+        className={`w-64 p-2 rounded ${className && className}`}
+        id={id}
+        ref={innerRef}
+        {...rest}
       />
     </div>
   )

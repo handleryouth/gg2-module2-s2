@@ -34,29 +34,32 @@ const NewReleases = () => {
     <div>
       <h2 className="text-white text-center ">New Release Albums and Singles</h2>
 
-      <div className="flex flex-wrap gap-2 justify-center">
-        {albums.items.map((album) => (
-          <Card
-            key={album.id}
-            id={album.id}
-            artist={album.artists}
-            date={album.release_date}
-            image={album.images[0].url}
-            title={album.name}
-            totalTracks={album.total_tracks}
-          />
-        ))}
-      </div>
-      <div className="flex justify-center  py-8">
-        {albums.total > 10 && (
-          <Pagination
-            page={page}
-            handlePageChange={(e) => {
-              setPage(e.first)
-            }}
-            resultsLength={albums.total}
-          />
-        )}
+      <div className="min-h-screen">
+        <div className="flex flex-wrap gap-2 justify-center ">
+          {albums.items.map((album) => (
+            <Card
+              enabledDetails
+              key={album.id}
+              id={album.id}
+              artist={album.artists}
+              date={album.release_date}
+              image={album.images[0].url}
+              title={album.name}
+              totalTracks={album.total_tracks}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center  py-8">
+          {albums.total > 10 && (
+            <Pagination
+              page={page}
+              handlePageChange={(e) => {
+                setPage(e.first)
+              }}
+              resultsLength={albums.total}
+            />
+          )}
+        </div>
       </div>
     </div>
   )

@@ -5,6 +5,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import Layout from './Layout'
 
+window.scrollTo = jest.fn()
+
+afterAll(() => {
+  jest.clearAllMocks()
+})
+
 describe('layout rendered', () => {
   it('should rendered', () => {
     const { getByTestId } = render(

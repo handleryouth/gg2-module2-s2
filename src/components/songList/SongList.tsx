@@ -18,11 +18,11 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
                 <div key={index} className="flex items-center justify-between text-white ">
                   <p> {song.name.length > 13 ? `${song.name.slice(0, 13)}...` : song.name}</p>
                   <Button
-                    title="remove"
                     toggleFunction={() =>
                       setSelected((prevState) => prevState.filter((item) => item.id !== song.id))
-                    }
-                  />
+                    }>
+                    remove
+                  </Button>
                 </div>
               ))}
             </div>
@@ -30,18 +30,17 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
 
           <h3 className="text-white">Songs</h3>
           <div className="flex items-center justify-between flex-col  gap-2 sm:flex-row">
-            <Button
-              title="Show songs"
-              toggleFunction={() => setShowMusic((prevState) => !prevState)}
-            />
-            <Button title="Close list" toggleFunction={() => setHide(false)} />
+            <Button toggleFunction={() => setShowMusic((prevState) => !prevState)}>
+              Show songs
+            </Button>
+            <Button toggleFunction={() => setHide(false)}>Close list</Button>
             {selectedSongs.length > 1 && (
-              <Button title="Remove all songs" toggleFunction={() => setSelected([])} />
+              <Button toggleFunction={() => setSelected([])}>Remove all songs</Button>
             )}
           </div>
         </>
       ) : (
-        <Button title="Open list" toggleFunction={() => setHide(true)} />
+        <Button toggleFunction={() => setHide(true)}>Open list</Button>
       )}
     </div>
   )
