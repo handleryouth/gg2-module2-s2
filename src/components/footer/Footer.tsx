@@ -32,10 +32,7 @@ const Footer = () => {
             <ul className="flex flex-wrap flex-col smallDisplay:flex-row text-center gap-4 smallDisplay:text-left  prose-li:pl-0 prose-li:my-0  ">
               {PAGE_LINKS.map((link, index) => (
                 <li key={index}>
-                  <Link
-                    to={link.path}
-                    className="custom-link"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                  <Link to={link.path} className="custom-link">
                     {link.text}
                   </Link>
                 </li>
