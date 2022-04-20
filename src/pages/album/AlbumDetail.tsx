@@ -2,12 +2,8 @@ import { useCallback, useState, useEffect } from 'react';
 import { Button, Seo } from 'components';
 import { Accordion, AccordionTab } from 'primereact/accordion';
 import { useHistory, useParams } from 'react-router-dom';
-import { AlbumProps } from 'types';
+import { AlbumDetailsParams, AlbumProps } from 'types';
 import { requestHelper } from 'utils';
-
-interface AlbumDetailsParams {
-  id: string;
-}
 
 const AlbumDetail = () => {
   const [responseData, setResponnseData] = useState<AlbumProps>();

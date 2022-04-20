@@ -2,12 +2,27 @@
 import { ChangeEvent, Dispatch, HTMLProps, ReactNode, RefObject, SetStateAction } from 'react';
 import { PaginatorPageState } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
+import { IconType } from 'react-icons';
 
 export interface ButtonProps {
   className?: string;
   children: ReactNode | string;
   toggleFunction?: () => void;
   type?: 'button' | 'submit' | 'reset' | undefined;
+}
+
+export interface TooltipProps {
+  target: string;
+  text: string;
+  textslice?: string;
+  icon?: ReactNode;
+}
+
+export interface FooterLink {
+  name: string;
+  url?: string;
+  textDescription: string;
+  icon: IconType;
 }
 
 export interface SeoProps {
