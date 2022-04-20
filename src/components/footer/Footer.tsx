@@ -1,6 +1,6 @@
-import CustomTooltip from 'components/tooltip/Tooltip'
-import { Link } from 'react-router-dom'
-import { FOOTER_LINK, PAGE_LINKS } from 'utils'
+import CustomTooltip from 'components/tooltip/Tooltip';
+import { Link } from 'react-router-dom';
+import { FOOTER_LINK, PAGE_LINKS } from 'utils';
 
 const Footer = () => {
   return (
@@ -15,7 +15,6 @@ const Footer = () => {
                   target={item.name}
                   icon={<item.icon />}
                   text={item.textDescription}
-                  customclassName="text-white hover:text-blue-500 transition-colors"
                 />
               </a>
             </li>
@@ -33,7 +32,10 @@ const Footer = () => {
             <ul className="flex flex-wrap flex-col smallDisplay:flex-row text-center gap-4 smallDisplay:text-left  prose-li:pl-0 prose-li:my-0  ">
               {PAGE_LINKS.map((link, index) => (
                 <li key={index}>
-                  <Link to={link.path} className="custom-link">
+                  <Link
+                    to={link.path}
+                    className="custom-link"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     {link.text}
                   </Link>
                 </li>
@@ -43,7 +45,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

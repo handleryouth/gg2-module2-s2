@@ -1,9 +1,9 @@
-import { Tooltip } from 'components'
-import Button from 'components/button/Button'
-import Section from 'components/section/Section'
-import { Card } from 'primereact/card'
-import { useHistory } from 'react-router-dom'
-import { CustomCardProps } from 'types'
+import { Tooltip } from 'components';
+import Button from 'components/button/Button';
+import Section from 'components/section/Section';
+import { Card } from 'primereact/card';
+import { useHistory } from 'react-router-dom';
+import { CustomCardProps } from 'types';
 
 function CustomCard({
   image,
@@ -18,7 +18,7 @@ function CustomCard({
   selectCondition,
   allowSelect
 }: CustomCardProps) {
-  const history = useHistory()
+  const history = useHistory();
 
   return (
     <div onClick={() => (enabledDetails ? history.push(`albums/${id}`) : null)}>
@@ -29,7 +29,6 @@ function CustomCard({
             target="card-title"
             textslice={title.length > 13 ? `${title.slice(0, 13)}...` : title}
             text={title}
-            customclassName="text-white"
           />
         }
         subTitle={
@@ -39,7 +38,7 @@ function CustomCard({
                 <p className="my-0" key={index}>
                   {item.name}
                 </p>
-              )
+              );
             })}
           </div>
         }
@@ -60,7 +59,7 @@ function CustomCard({
         </div>
       </Card>
     </div>
-  )
+  );
 }
 
-export default CustomCard
+export default CustomCard;

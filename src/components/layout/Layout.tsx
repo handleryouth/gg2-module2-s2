@@ -1,15 +1,10 @@
-import { ReactNode, useEffect } from 'react'
-import Footer from 'components/footer/Footer'
-import Navbar from 'components/navbar/Navbar'
-import SidebarComponent from 'components/sidebar/Sidebar'
-import { ScrollTop } from 'primereact/scrolltop'
-import { useLocation } from 'react-router-dom'
+import { ReactNode } from 'react';
+import Footer from 'components/footer/Footer';
+import Navbar from 'components/navbar/Navbar';
+import SidebarComponent from 'components/sidebar/Sidebar';
+import { ScrollTop } from 'primereact/scrolltop';
 
 function Layout({ children }: { children: ReactNode }) {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
   return (
     <>
       <SidebarComponent />
@@ -22,7 +17,7 @@ function Layout({ children }: { children: ReactNode }) {
         <Footer />
       </div>
     </>
-  )
+  );
 }
 
-export default Layout
+export default Layout;

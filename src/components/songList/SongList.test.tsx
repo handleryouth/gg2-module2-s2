@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom'
-import React from 'react'
-import { render, cleanup } from '@testing-library/react'
-import SongList from './SongList'
+import '@testing-library/jest-dom';
+import React from 'react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
+import SongList from './SongList';
 
 const selectedSong = [
   {
@@ -12,30 +12,36 @@ const selectedSong = [
     name: 'Air on the G string',
     id: '1234'
   }
-]
+];
 
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});
 
 describe('Songlist rendered', () => {
   it('should rendered', () => {
-    const handleSelected = jest.fn()
+    const handleSelected = jest.fn();
 
     const { getByTestId } = render(
       <SongList selectedSongs={selectedSong} setSelected={handleSelected} />
-    )
-    expect(getByTestId('song-list')).toBeInTheDocument()
-  })
+    );
+    expect(getByTestId('song-list')).toBeInTheDocument();
+  });
 
   it('hiding state must be changed', () => {
-    const setStateSpy = jest
-      .spyOn(React, 'useState')
-      .mockImplementationOnce(() => [true, jest.fn()]) // to make the state change
-      .mockImplementationOnce(() => [null, () => null]) //to make sure that the second call is not called
+    const setStateMock = jest.fn();
+    const useStateMock = (initialState: boolean) => [initialState, setStateMock];
 
-    render(<SongList selectedSongs={selectedSong} setSelected={jest.fn()} />)
+    jest.spyOn(React, 'useState').mockImplementation(useStateMock as jest.Mock);
 
-    expect(setStateSpy).toBeCalledTimes(2)
-  })
-})
+    const { getByTestId } = render(
+      <SongList selectedSongs={selectedSong} setSelected={jest.fn()} />
+    );
+
+    const button = getByTestId('button');
+
+    fireEvent.click(button);
+
+    expect(setStateMock).toHaveBeenCalledWith(true);
+  });
+});

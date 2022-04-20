@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import Button from 'components/button/Button'
-import { SongListProps } from 'types'
+import { useState } from 'react';
+import Button from 'components/button/Button';
+import { SongListProps } from 'types';
 
 function SongList({ selectedSongs, setSelected }: SongListProps) {
-  const [showMusic, setShowMusic] = useState(true)
-  const [hide, setHide] = useState(false)
+  const [showMusic, setShowMusic] = useState(true);
+  const [hide, setHide] = useState(false);
 
   return (
     <div
@@ -43,7 +43,7 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
         <Button toggleFunction={() => setHide(true)}>Open list</Button>
       )}
     </div>
-  )
+  );
 }
 
-export default SongList
+export default SongList;

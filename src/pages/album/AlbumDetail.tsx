@@ -1,33 +1,37 @@
-import { useCallback, useState, useEffect } from 'react'
-import { Button } from 'components'
-import { Accordion, AccordionTab } from 'primereact/accordion'
-import { useHistory, useParams } from 'react-router-dom'
-import { AlbumProps } from 'types'
-import { requestHelper } from 'utils'
+import { useCallback, useState, useEffect } from 'react';
+import { Button, Seo } from 'components';
+import { Accordion, AccordionTab } from 'primereact/accordion';
+import { useHistory, useParams } from 'react-router-dom';
+import { AlbumProps } from 'types';
+import { requestHelper } from 'utils';
 
 interface AlbumDetailsParams {
-  id: string
+  id: string;
 }
 
 const AlbumDetail = () => {
-  const [responseData, setResponnseData] = useState<AlbumProps>()
-  const history = useHistory()
-  const { id } = useParams<AlbumDetailsParams>()
+  const [responseData, setResponnseData] = useState<AlbumProps>();
+  const history = useHistory();
+  const { id } = useParams<AlbumDetailsParams>();
 
   const handleLoadData = useCallback(async () => {
-    await requestHelper.get(`/albums/${id}`).then((res) => setResponnseData(res.data))
-  }, [id])
+    await requestHelper.get(`/albums/${id}`).then((res) => setResponnseData(res.data));
+  }, [id]);
 
   useEffect(() => {
-    handleLoadData()
-  }, [handleLoadData])
+    handleLoadData();
+  }, [handleLoadData]);
 
   if (!responseData) {
-    return <div className="min-h-screen" />
+    return <div className="min-h-screen" />;
   }
 
   return (
     <div className="py-8 min-h-screen">
+      <Seo
+        title={`${responseData.name} - ${responseData.artists[0].name}`}
+        description={`${responseData.name} - ${responseData.artists[0].name} details`}
+      />
       <Button toggleFunction={() => history.goBack()}>Back</Button>
       <div className="flex items-center">
         <img src={responseData.images[0].url} width={300} height={300} />
@@ -61,7 +65,7 @@ const AlbumDetail = () => {
         </AccordionTab>
       </Accordion>
     </div>
-  )
-}
+  );
+};
 
-export default AlbumDetail
+export default AlbumDetail;
