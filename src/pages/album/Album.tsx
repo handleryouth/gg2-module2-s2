@@ -80,6 +80,7 @@ const Albums = () => {
           <Pagination
             page={page}
             handlePageChange={(e) => {
+              window.scroll({ top: 0, behavior: 'smooth' });
               setPage(e.first);
             }}
             resultsLength={Math.floor(responseData.total / 10)}

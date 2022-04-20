@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { Button, Seo } from 'components';
 import { Accordion, AccordionTab } from 'primereact/accordion';
+import { Image } from 'primereact/image';
 import { useHistory, useParams } from 'react-router-dom';
 import { AlbumDetailsParams, AlbumProps } from 'types';
 import { requestHelper } from 'utils';
@@ -36,7 +37,7 @@ const AlbumDetail = () => {
       />
       <Button toggleFunction={() => history.goBack()}>Back</Button>
       <div className="flex items-center">
-        <img src={responseData.images[0].url} width={300} height={300} />
+        <Image src={responseData.images[0].url} width="300" height="300" preview />
 
         <div className="flex-grow text-center  ">
           <h1 className="text-white">{responseData.name}</h1>

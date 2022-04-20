@@ -159,6 +159,10 @@ function Home() {
               page={page.current}
               handlePageChange={(e) => {
                 page.current = e.first;
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                });
                 setForceUpdate((prevState) => !prevState);
               }}
               resultsLength={responseData.length}
