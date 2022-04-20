@@ -6,7 +6,6 @@
     "@fontsource/inter": "^4.5.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/typography": "^0.5.2",
-    "@types/react-lazy-load-image-component": "^1.5.2",
     "autoprefixer": "^10.4.4",
     "axios": "^0.26.1",
     "cross-env": "^7.0.3",
@@ -68,6 +67,7 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
+    "@types/react-lazy-load-image-component": "^1.5.2",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.4.1",
