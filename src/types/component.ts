@@ -3,6 +3,7 @@ import { ChangeEvent, Dispatch, HTMLProps, ReactNode, RefObject, SetStateAction 
 import { PaginatorPageState } from 'primereact/paginator';
 import { Toast } from 'primereact/toast';
 import { IconType } from 'react-icons';
+import { ImageData } from 'types/page';
 
 export interface ButtonProps {
   className?: string;
@@ -28,6 +29,16 @@ export interface FooterLink {
 export interface SeoProps {
   title?: string;
   description?: string;
+}
+
+export interface UserData {
+  display_name: string;
+  followers: {
+    total: number;
+    href: string;
+  };
+  images: ImageData[];
+  id: string;
 }
 
 export interface SectionProps {

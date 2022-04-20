@@ -1,13 +1,13 @@
-import { Button } from 'components/button'
-import { Twirl as Hamburger } from 'hamburger-react'
-import { activateSidebar, RootState } from 'library'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { PAGE_LINKS } from 'utils'
+import { Button } from 'components/button';
+import { Twirl as Hamburger } from 'hamburger-react';
+import { activateSidebar, RootState } from 'library';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { PAGE_LINKS } from 'utils';
 
 function Navbar() {
-  const reduxState = useSelector((state: RootState) => state)
-  const dispatch = useDispatch()
+  const reduxState = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
   return (
     <nav
@@ -32,21 +32,23 @@ function Navbar() {
                     {item.text}{' '}
                   </Link>
                 </li>
-              )
+              );
             })}
           </ul>
 
           <img
-            className="w-10 h-10 rounded-full"
+            className="w-12 h-12 rounded-full"
             src={
-              'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'
+              reduxState.user.images.length
+                ? reduxState.user.images[0].url
+                : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'
             }
             alt="User Profile"
           />
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

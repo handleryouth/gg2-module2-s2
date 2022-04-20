@@ -94,78 +94,76 @@ function Home() {
       <CustomToast customRef={toastRef} />
       <Seo title="Create Playlist" description="Create your own playlist" />
 
+      <div className="text-center py-4 flex flex-col sm:flex-row justify-center items-center gap-y-4">
+        <input
+          className="border-2 border-r-0 px-2 focus:outline-none"
+          placeholder="search..."
+          ref={inputRef}
+        />
+        <Button toggleFunction={handleSearch} className=" sm:w-auto rounded sm:rounded-l-none">
+          Search
+        </Button>
+      </div>
+
       <div>
-        <div className="text-center py-4 flex flex-col sm:flex-row justify-center items-center gap-y-4">
-          <input
-            className="border-2 border-r-0 px-2 focus:outline-none"
-            placeholder="search..."
-            ref={inputRef}
-          />
-          <Button toggleFunction={handleSearch} className=" sm:w-auto rounded sm:rounded-l-none">
-            Search
-          </Button>
-        </div>
+        <h3 className="text-center text-white">Song Detail</h3>
 
-        <div>
-          <h3 className="text-center text-white">Song Detail</h3>
+        {responseData.length ? (
+          <motion.div
+            className="grid  justify-center grid-cols-grid-auto-fit-songs xl:grid-cols-3 my-4 gap-8  mx-4"
+            variants={slideLeftEntranceStaggered}
+            initial="hidden"
+            animate="visible">
+            {responseData.slice(page.current, page.current + 10).map((item) => {
+              return (
+                <motion.div key={item.id} variants={slideLeftEntrance}>
+                  <Card
+                    toggleSelected={() => {
+                      handleToast({ summary: 'Item added', detail: item.name });
+                      setSelected((prevState) => [
+                        ...prevState,
+                        {
+                          name: item.name,
+                          id: item.id
+                        }
+                      ]);
+                    }}
+                    allowSelect
+                    selectCondition={selected.map((item) => item.id).includes(item.id)}
+                    toggleDeselected={() => {
+                      handleToast({
+                        severity: 'error',
+                        summary: 'Item removed',
+                        detail: item.name
+                      });
+                      setSelected(selected.filter((song) => song.id !== item.id));
+                    }}
+                    id={item.id}
+                    artist={item.artists}
+                    date={item.album.release_date}
+                    image={item.album.images[0].url}
+                    title={item.name}
+                    totalTracks={item.track_number}
+                  />
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        ) : (
+          <p className="text-white  text-center ">You haven&apos;t search something yet 😢</p>
+        )}
 
-          {responseData.length ? (
-            <motion.div
-              className="grid  justify-center grid-cols-grid-auto-fit-songs xl:grid-cols-3 my-4 gap-8  mx-4"
-              variants={slideLeftEntranceStaggered}
-              initial="hidden"
-              animate="visible">
-              {responseData.slice(page.current, page.current + 10).map((item) => {
-                return (
-                  <motion.div key={item.id} variants={slideLeftEntrance}>
-                    <Card
-                      toggleSelected={() => {
-                        handleToast({ summary: 'Item added', detail: item.name });
-                        setSelected((prevState) => [
-                          ...prevState,
-                          {
-                            name: item.name,
-                            id: item.id
-                          }
-                        ]);
-                      }}
-                      allowSelect
-                      selectCondition={selected.map((item) => item.id).includes(item.id)}
-                      toggleDeselected={() => {
-                        handleToast({
-                          severity: 'error',
-                          summary: 'Item removed',
-                          detail: item.name
-                        });
-                        setSelected(selected.filter((song) => song.id !== item.id));
-                      }}
-                      id={item.id}
-                      artist={item.artists}
-                      date={item.album.release_date}
-                      image={item.album.images[0].url}
-                      title={item.name}
-                      totalTracks={item.track_number}
-                    />
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          ) : (
-            <p className="text-white  text-center ">You haven&apos;t search something yet 😢</p>
+        <div className="flex justify-center my-8">
+          {responseData.length > 10 && (
+            <Pagination
+              page={page.current}
+              handlePageChange={(e) => {
+                page.current = e.first;
+                setForceUpdate((prevState) => !prevState);
+              }}
+              resultsLength={responseData.length}
+            />
           )}
-
-          <div className="flex justify-center my-8">
-            {responseData.length > 10 && (
-              <Pagination
-                page={page.current}
-                handlePageChange={(e) => {
-                  page.current = e.first;
-                  setForceUpdate((prevState) => !prevState);
-                }}
-                resultsLength={responseData.length}
-              />
-            )}
-          </div>
         </div>
       </div>
 

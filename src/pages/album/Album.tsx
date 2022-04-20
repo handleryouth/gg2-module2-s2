@@ -7,6 +7,7 @@ import { requestHelper, useDebounce } from 'utils';
 
 const Albums = () => {
   const [search, setSearch] = useState('');
+  let rendered = true;
   const [responseData, setResponseData] = useState<AlbumsResponseData>({
     items: [],
     total: 0,
@@ -27,15 +28,20 @@ const Albums = () => {
           offset: page
         }
       })
-      .then((res) => setResponseData(res.data.albums));
-  }, [page, search]);
+      .then((res) => rendered && setResponseData(res.data.albums));
+  }, [page, rendered, search]);
 
   useEffect(() => {
     handleLoadData();
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      rendered = false;
+    };
   }, [handleLoadData]);
 
   return (
-    <div className="min-h-screen">
+    <>
       <Seo title="Albums" description="Albums from Spotify" />
       <div className="flex justify-center flex-col items-center ">
         <h2 className="mt-0 text-white">Search Albums</h2>
@@ -76,11 +82,11 @@ const Albums = () => {
             handlePageChange={(e) => {
               setPage(e.first);
             }}
-            resultsLength={responseData.total}
+            resultsLength={Math.floor(responseData.total / 10)}
           />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

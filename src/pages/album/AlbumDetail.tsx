@@ -7,19 +7,25 @@ import { requestHelper } from 'utils';
 
 const AlbumDetail = () => {
   const [responseData, setResponnseData] = useState<AlbumProps>();
+  let rendered = true;
   const history = useHistory();
   const { id } = useParams<AlbumDetailsParams>();
 
   const handleLoadData = useCallback(async () => {
-    await requestHelper.get(`/albums/${id}`).then((res) => setResponnseData(res.data));
-  }, [id]);
+    await requestHelper.get(`/albums/${id}`).then((res) => rendered && setResponnseData(res.data));
+  }, [id, rendered]);
 
   useEffect(() => {
     handleLoadData();
+
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      rendered = false;
+    };
   }, [handleLoadData]);
 
   if (!responseData) {
-    return <div className="min-h-screen" />;
+    return <div />;
   }
 
   return (

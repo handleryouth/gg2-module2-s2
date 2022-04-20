@@ -33,7 +33,7 @@ const NewReleases = () => {
   }, [handleGetData]);
 
   return (
-    <div className="min-h-screen">
+    <div>
       <Seo title="New Releases" description="New Releases from Spotify" />
       <h2 className="text-white text-center ">New Release Albums and Singles</h2>
 
