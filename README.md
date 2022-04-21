@@ -14,7 +14,7 @@ npm install
 
 ## Usage
 To run the application on the development server, keep in mind that this application can use 2 commands, namely 
-```yarn start``` and ```yarn dev```. but for better results and formatting needs, it is highly recommended to use "yarn dev". if you feel uncomfortable, feel free to change the script in package.json
+```yarn start``` and ```yarn dev```. but for better results and formatting needs, it is highly recommended to use ```yarn dev```. if you feel uncomfortable, feel free to change the script in package.json
 ```bash
     "start": "react-scripts start",
     "dev": "yarn start && yarn fix && yarn format",
