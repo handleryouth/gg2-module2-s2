@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import {
+  addToken,
   deactivateSidebar,
   RootState,
   slideLeftEntrance,
@@ -18,7 +19,7 @@ const SidebarComponent = () => {
     <Sidebar
       visible={isOpen}
       onHide={() => dispatch(deactivateSidebar())}
-      className="dark:bg-black">
+      className="dark:bg-black min-w-[320px]">
       <h3 className="prose text-4xl h-12 font-bold text-transparent cursor-default bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500 animate-hue-rotate">
         Where to go ?
       </h3>
@@ -34,13 +35,17 @@ const SidebarComponent = () => {
             key={index}
             onClick={() => dispatch(deactivateSidebar())}
             variants={slideLeftEntrance}>
-            <Link
-              to={link.path}
-              className="text-2xl hover:text-blue-500 cursor-pointer transition-colors text-white font-bold no-underline ">
+            <Link to={link.path} className="sidebar-link">
               {link.text}
             </Link>
           </motion.li>
         ))}
+        <motion.li
+          className="sidebar-link"
+          variants={slideLeftEntrance}
+          onClick={() => dispatch(addToken(''))}>
+          Logout
+        </motion.li>
       </motion.ul>
     </Sidebar>
   );

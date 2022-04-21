@@ -5,7 +5,6 @@ import {
   Pagination,
   PlaylistForm,
   PlaylistList,
-  Portal,
   SongList,
   CustomToast,
   Seo
@@ -88,9 +87,8 @@ function Home() {
 
   return (
     <>
-      <Portal visible={selected.length > 0}>
-        <SongList selectedSongs={selected} setSelected={setSelected} />
-      </Portal>
+      <SongList selectedSongs={selected} setSelected={setSelected} />
+
       <CustomToast customRef={toastRef} />
       <Seo title="Create Playlist" description="Create your own playlist" />
 

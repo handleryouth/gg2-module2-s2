@@ -20,7 +20,7 @@ function Layout({ children }: { children: ReactNode }) {
         data-testid="layout"
         className="prose !min-w-[320px] !max-w-none bg-[#1c1b22]  prose-ul:list-none prose-a:no-underline">
         <Navbar />
-        <div className="max-w-[68rem] mx-auto px-4 lg:px-0 min-h-screen">{children}</div>
+        <div className="max-w-[68rem] mx-auto px-4 xl:px-0 min-h-screen">{children}</div>
         <Footer />
       </div>
     </>

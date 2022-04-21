@@ -25,6 +25,11 @@ describe('Songlist rendered', () => {
     const { getByTestId } = render(
       <SongList selectedSongs={selectedSong} setSelected={handleSelected} />
     );
+
+    const button = getByTestId('button');
+
+    fireEvent.click(button);
+
     expect(getByTestId('song-list')).toBeInTheDocument();
   });
 

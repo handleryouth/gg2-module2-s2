@@ -36,11 +36,11 @@ const AlbumDetail = () => {
         description={`${responseData.name} - ${responseData.artists[0].name} details`}
       />
       <Button toggleFunction={() => history.goBack()}>Back</Button>
-      <div className="flex items-center">
+      <div className="flex items-center md:flex-row flex-col">
         <Image src={responseData.images[0].url} width="300" height="300" preview />
 
         <div className="flex-grow text-center  ">
-          <h1 className="text-white">{responseData.name}</h1>
+          <h2 className=" text-3xl text-white sm:w-96 mx-auto">{responseData.name}</h2>
           <p className="text-white">{responseData.release_date}</p>
         </div>
       </div>

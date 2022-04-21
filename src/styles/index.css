@@ -6,4 +6,8 @@
   .custom-link {
     @apply text-white  cursor-pointer  transition-colors text-xs uppercase font-bold hover:text-blue-700 no-underline;
   }
+
+  .sidebar-link {
+    @apply text-2xl hover:text-blue-500 cursor-pointer transition-colors text-white font-bold no-underline;
+  }
 }
