@@ -15,7 +15,7 @@ function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <SidebarComponent />
-      <ScrollTop threshold={250} />
+      <ScrollTop threshold={250} className="left-2 !bg-white" />
       <div
         data-testid="layout"
         className="prose !min-w-[320px] !max-w-none bg-[#1c1b22]  prose-ul:list-none prose-a:no-underline">

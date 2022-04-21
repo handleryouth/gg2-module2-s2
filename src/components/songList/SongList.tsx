@@ -8,6 +8,7 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
 
   return hide ? (
     <Dialog
+      draggable={false}
       onHide={() => setHide(false)}
       visible
       position="bottom-right"
@@ -40,7 +41,7 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
       </div>
     </Dialog>
   ) : (
-    <div className="bg-black z-10  fixed bottom-3 right-3 rounded p-2 flex justify-end flex-col prose">
+    <div className="bg-black z-10  fixed bottom-20 right-3 rounded p-2 flex justify-end flex-col prose">
       <Button toggleFunction={() => setHide(true)}>Open list</Button>
     </div>
   );
