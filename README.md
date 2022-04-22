@@ -12,6 +12,16 @@ or
 npm install
 ```
 
+To create a .husky folder, you can use the following command
+```bash
+yarn husky-install
+```
+and to add pre-commit hooks to husky, you can use the following command
+```bash
+npx husky add .husky/pre-commit "your scripts here"
+```
+
+
 ## Usage
 To run the application on the development server, keep in mind that this application can use 2 commands, namely 
 ```yarn start``` and ```yarn dev```. but for better results and formatting needs, it is highly recommended to use ```yarn dev```. if you feel uncomfortable, feel free to change the script in package.json
