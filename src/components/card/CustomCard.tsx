@@ -30,7 +30,8 @@ function CustomCard({
       }}
       transition={{
         duration: 0.3
-      }}>
+      }}
+    >
       <Card
         data-testid="card"
         title={
@@ -56,14 +57,16 @@ function CustomCard({
           allowSelect && (
             <Button
               className="w-full h-10"
-              toggleFunction={selectCondition ? toggleDeselected : toggleSelected}>
+              toggleFunction={selectCondition ? toggleDeselected : toggleSelected}
+            >
               {selectCondition ? 'Deselect' : 'Select'}
             </Button>
           )
         }
         header={
           <LazyLoadImage className="h-72  my-0 rounded" src={image} alt={title} threshold={50} />
-        }>
+        }
+      >
         <div className=" prose-p:my-2  text-white h-[9rem] overflow-auto">
           <Section title="Release Date" value={date} />
           <Section title="Total Tracks" value={totalTracks} />

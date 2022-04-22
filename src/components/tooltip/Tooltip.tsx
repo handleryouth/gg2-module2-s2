@@ -16,7 +16,8 @@ const CustomTooltip = ({ target, text, textslice, icon }: TooltipProps) => {
         <i
           className={`${target} text-white hover:text-blue-500 transition-colors`}
           data-pr-showdelay="200"
-          data-pr-tooltip={text}>
+          data-pr-tooltip={text}
+        >
           {icon}
         </i>
       )}

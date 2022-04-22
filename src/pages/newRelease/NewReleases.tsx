@@ -42,7 +42,8 @@ const NewReleases = () => {
           className="flex flex-wrap gap-2 justify-center"
           variants={slideLeftEntranceStaggered}
           animate="visible"
-          initial="hidden">
+          initial="hidden"
+        >
           {albums.items.map((album) => (
             <motion.div key={album.id} variants={slideLeftEntrance}>
               <Card

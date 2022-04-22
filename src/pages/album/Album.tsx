@@ -56,7 +56,8 @@ const Albums = () => {
           className="flex flex-wrap gap-4 justify-center mt-8 min-h-screen"
           variants={slideLeftEntranceStaggered}
           initial="hidden"
-          animate="visible">
+          animate="visible"
+        >
           {responseData.items.map((album) => (
             <motion.div key={album.id} variants={slideLeftEntrance}>
               <Card

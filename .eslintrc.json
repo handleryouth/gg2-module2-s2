@@ -54,5 +54,5 @@
       }
     ]
   },
-  "ignorePatterns": ["node_modules/", "webpack.config.js"]
+  "ignorePatterns": ["node_modules/", "craco.config.js"]
 }
