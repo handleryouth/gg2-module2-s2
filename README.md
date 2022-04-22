@@ -81,7 +81,7 @@ https://user-images.githubusercontent.com/70279376/164517132-e442672d-9e80-49dc-
 
 https://user-images.githubusercontent.com/70279376/164517709-54181ade-5992-44ca-8ca4-365e84801085.mp4
 
-- added a component called toast to warn the user about any actions that have been performed when creating a playlist or adding a song
+- Added a component called toast to warn the user about any actions that have been performed when creating a playlist or adding a song
 
 
 
@@ -89,6 +89,12 @@ https://user-images.githubusercontent.com/70279376/164518448-c6650653-7d7c-43d3-
 
 - This website covers all mobile devices up to a size of 320px
 ![image](https://user-images.githubusercontent.com/70279376/164707215-92243147-c2fb-4400-84b5-23857f217ecd.png)
+
+- Some new pages to see albums that have just been released and if you want to find albums with details
+![image](https://user-images.githubusercontent.com/70279376/164707796-1c43edda-7d0a-4bfe-b4c5-59cc604a6914.png)
+![image](https://user-images.githubusercontent.com/70279376/164707868-c0724234-e852-4cb8-aa57-97d8e7cf05b7.png)
+![image](https://user-images.githubusercontent.com/70279376/164707905-21820bee-a859-4bb7-a7fb-d9f0ace6b088.png)
+
 
 ## Added Features (For Developers)
 There are several features added to this React application that can make it easier for developers to develop in the future
