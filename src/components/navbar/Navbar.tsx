@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 import { Button } from 'components/button'
 import { Twirl as Hamburger } from 'hamburger-react'
-import { activateSidebar, addToken, RootState } from 'library'
+import { activateSidebar, RootState } from 'library'
 import { OverlayPanel } from 'primereact/overlaypanel'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PAGE_LINKS } from 'utils'
+import { logoutHelper, PAGE_LINKS } from 'utils'
 
 function Navbar() {
   const reduxState = useSelector((state: RootState) => state)
@@ -18,7 +18,7 @@ function Navbar() {
       data-testid="navbar"
     >
       <OverlayPanel ref={panelRef}>
-        <Button toggleFunction={() => dispatch(addToken(''))}>Logout</Button>
+        <Button toggleFunction={logoutHelper}>Logout</Button>
       </OverlayPanel>
       <div className="max-w-[68rem] flex items-center justify-between mx-auto">
         <div className="flex flex-col font-bold">

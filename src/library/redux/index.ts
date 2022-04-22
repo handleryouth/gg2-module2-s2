@@ -1,4 +1,5 @@
 export * from './store'
 export * from './tokenSlice'
 export * from './userSlice'
-export * from './sidebarslice'
+export * from './sidebarSlice'
+export * from './playlistSlice'

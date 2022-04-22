@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 import { render } from '@testing-library/react'
-import { createStore } from 'library'
+import { createReduxStore } from 'library'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import Layout from './Layout'
@@ -15,7 +15,7 @@ describe('layout rendered', () => {
   it('should rendered', () => {
     const { getByTestId } = render(
       <BrowserRouter>
-        <Provider store={createStore()}>
+        <Provider store={createReduxStore()}>
           <Layout>
             <div data-testid="children-div"> </div>
           </Layout>

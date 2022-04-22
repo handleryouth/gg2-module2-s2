@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import {
-  addToken,
   deactivateSidebar,
   RootState,
   slideLeftEntrance,
@@ -9,7 +8,7 @@ import {
 import { Sidebar } from 'primereact/sidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PAGE_LINKS } from 'utils'
+import { logoutHelper, PAGE_LINKS } from 'utils'
 
 const SidebarComponent = () => {
   const { isOpen } = useSelector((state: RootState) => state.sidebar)
@@ -43,11 +42,7 @@ const SidebarComponent = () => {
             </Link>
           </motion.li>
         ))}
-        <motion.li
-          className="sidebar-link"
-          variants={slideLeftEntrance}
-          onClick={() => dispatch(addToken(''))}
-        >
+        <motion.li className="sidebar-link" variants={slideLeftEntrance} onClick={logoutHelper}>
           Logout
         </motion.li>
       </motion.ul>
