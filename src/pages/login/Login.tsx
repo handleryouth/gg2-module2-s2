@@ -13,7 +13,8 @@ function Login() {
       transition={{
         duration: 0.2,
         delay: 0.5
-      }}>
+      }}
+    >
       <Seo title="Login" description="Grant access to Spotify" />
       <h1 className="my-0 text-white">Hi there 👋</h1>
       <p className="text-white">Please grant access to your spotify</p>

@@ -14,7 +14,8 @@ function ItemForm({ toggleSubmit, toggleCancel }: ItemFormProps) {
       <div className="fixed w-full flex top-[35%] justify-center items-center ">
         <form
           onSubmit={(e) => toggleSubmit(e, inputForm.current)}
-          className="max-w-none bg-blue-900 p-4 rounded prose flex flex-col gap-y-4 items-center">
+          className="max-w-none bg-blue-900 p-4 rounded prose flex flex-col gap-y-4 items-center"
+        >
           <Input
             data-testid="custom-input"
             label="Song link"

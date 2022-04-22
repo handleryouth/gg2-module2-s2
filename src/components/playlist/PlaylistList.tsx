@@ -67,7 +67,8 @@ function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
       <CustomToast customRef={toastRef} />
       <div
         className="text-white border-2 min-w-[280px] w-4/5 max-w-[30rem]  rounded p-4"
-        data-testid="playlist-list">
+        data-testid="playlist-list"
+      >
         <div className="text-center">
           <p className="mt-0">Playlist Name: {playlistName}</p>
           <div className="flex items-center gap-2 justify-center flex-col sm:flex-row">
@@ -83,7 +84,8 @@ function PlaylistList({ playlistName, id, selectedSong }: PlaylistListProps) {
                       detail: 'Please select song'
                     })
                   : handleAddItem()
-              }>
+              }
+            >
               Add selected song
             </Button>
             <Button toggleFunction={() => setShowItems((prevState) => !prevState)}>

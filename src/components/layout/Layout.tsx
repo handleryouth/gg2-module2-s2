@@ -18,7 +18,8 @@ function Layout({ children }: { children: ReactNode }) {
       <ScrollTop threshold={250} className="left-2 !bg-white" />
       <div
         data-testid="layout"
-        className="prose !min-w-[320px] !max-w-none bg-[#1c1b22]  prose-ul:list-none prose-a:no-underline">
+        className="prose !min-w-[320px] !max-w-none bg-[#1c1b22]  prose-ul:list-none prose-a:no-underline"
+      >
         <Navbar />
         <div className="max-w-[68rem] mx-auto px-4 xl:px-0 min-h-screen">{children}</div>
         <Footer />

@@ -17,10 +17,12 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
         selectedSongs.length > 1 && (
           <Button toggleFunction={() => setSelected([])}>Remove all songs</Button>
         )
-      }>
+      }
+    >
       <div
         data-testid="song-list"
-        className="flex flex-col gap-5 max-h-52 overflow-y-auto prose-p:my-0  sm:w-80 ">
+        className="flex flex-col gap-5 max-h-52 overflow-y-auto prose-p:my-0  sm:w-80 "
+      >
         {selectedSongs.length ? (
           selectedSongs.map((song, index) => (
             <div key={index} className="flex items-center justify-between text-white ">
@@ -30,7 +32,8 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
               <Button
                 toggleFunction={() =>
                   setSelected((prevState) => prevState.filter((item) => item.id !== song.id))
-                }>
+                }
+              >
                 remove
               </Button>
             </div>

@@ -15,7 +15,8 @@ function PlaylistForm({ toggleSubmit, name, description, customFormClassName }: 
       data-testid="playlist-form"
       ref={formRef}
       onSubmit={(e) => toggleSubmit(e, playlistData.current, formRef.current!)}
-      className={`flex flex-col items-center gap-y-4 border-2 py-4 ${customFormClassName}`}>
+      className={`flex flex-col items-center gap-y-4 border-2 py-4 ${customFormClassName}`}
+    >
       <Input
         label="Playlist Name"
         minLength={10}
