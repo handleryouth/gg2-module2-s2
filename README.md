@@ -17,15 +17,15 @@ To run the application on the development server, keep in mind that this applica
 ```yarn start``` and ```yarn dev```. but for better results and formatting needs, it is highly recommended to use ```yarn dev```. if you feel uncomfortable, feel free to change the script in package.json
 ```bash
     "start": "react-scripts start",
-    "dev": "yarn start && yarn fix && yarn format",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test:watch": "react-scripts test",
     "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject ",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
-    "format": "prettier --write --config ./.prettierrc",
+    "format": "yarn prettier --write src/",
     "husky-install": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "dev": "yarn fix && yarn format && yarn start"
  ```
 
 ## Added Features (For User)
