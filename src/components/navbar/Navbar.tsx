@@ -15,7 +15,8 @@ function Navbar() {
   return (
     <nav
       className="z-10 sticky top-0 bg-black  border-b-2 w-full  px-4 text-white mb-8"
-      data-testid="navbar">
+      data-testid="navbar"
+    >
       <OverlayPanel ref={panelRef}>
         <Button toggleFunction={logoutHelper}>Logout</Button>
       </OverlayPanel>

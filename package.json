@@ -44,11 +44,6 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn fix && yarn format && yarn test"
-    }
-  },
   "eslintConfig": {
     "extends": [
       "react-app",

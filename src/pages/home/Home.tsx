@@ -111,8 +111,7 @@ function Home() {
             className="grid  justify-center grid-cols-grid-auto-fit-songs xl:grid-cols-3 my-4 gap-8  mx-4"
             variants={slideLeftEntranceStaggered}
             initial="hidden"
-            animate="visible"
-          >
+            animate="visible">
             {responseData.slice(page.current, page.current + 10).map((item) => {
               return (
                 <motion.div key={item.id} variants={slideLeftEntrance}>
