@@ -1,5 +1,5 @@
-import { Helmet } from 'react-helmet-async';
-import { SeoProps } from 'types';
+import { Helmet } from 'react-helmet-async'
+import { SeoProps } from 'types'
 
 const Seo = ({ title, description }: SeoProps) => {
   return (
@@ -39,7 +39,7 @@ const Seo = ({ title, description }: SeoProps) => {
       />
       <meta property="twitter:image" content="https://i.ibb.co/YWJyXBv/handleryouth-xyz.webp" />
     </Helmet>
-  );
-};
+  )
+}
 
-export default Seo;
+export default Seo

@@ -12,7 +12,7 @@ export const slideLeftEntranceStaggered = {
       staggerChildren: 0.2
     }
   }
-};
+}
 
 export const slideLeftEntrance = {
   hidden: {
@@ -23,4 +23,4 @@ export const slideLeftEntrance = {
     opacity: 1,
     x: 0
   }
-};
+}

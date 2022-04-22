@@ -27,15 +27,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "yarn start && yarn fix && yarn format",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "test:watch": "react-scripts test",
     "test": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject ",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
-    "format": "prettier --write --config ./.prettierrc",
+    "format": "yarn prettier --write src/",
     "husky-install": "husky install",
-    "commit": "cz"
+    "commit": "cz",
+    "dev": "yarn fix && yarn format && yarn start"
   },
   "config": {
     "commitizen": {

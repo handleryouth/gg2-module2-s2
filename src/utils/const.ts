@@ -1,6 +1,6 @@
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { GrMail } from 'react-icons/gr';
-import { FooterLink } from 'types';
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { GrMail } from 'react-icons/gr'
+import { FooterLink } from 'types'
 
 export const FOOTER_LINK: FooterLink[] = [
   {
@@ -20,7 +20,7 @@ export const FOOTER_LINK: FooterLink[] = [
     textDescription: "I'm on LinkedIn",
     icon: FaLinkedin
   }
-];
+]
 
 export const PAGE_LINKS = [
   {
@@ -35,4 +35,4 @@ export const PAGE_LINKS = [
     path: '/albums',
     text: 'Albums'
   }
-];
+]

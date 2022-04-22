@@ -1,6 +1,6 @@
-import CustomTooltip from 'components/tooltip/Tooltip';
-import { Link } from 'react-router-dom';
-import { FOOTER_LINK, PAGE_LINKS } from 'utils';
+import CustomTooltip from 'components/tooltip/Tooltip'
+import { Link } from 'react-router-dom'
+import { FOOTER_LINK, PAGE_LINKS } from 'utils'
 
 const Footer = () => {
   return (
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

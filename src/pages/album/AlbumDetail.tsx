@@ -1,32 +1,32 @@
-import { useCallback, useState, useEffect } from 'react';
-import { Button, Seo } from 'components';
-import { Accordion, AccordionTab } from 'primereact/accordion';
-import { Image } from 'primereact/image';
-import { useHistory, useParams } from 'react-router-dom';
-import { AlbumDetailsParams, AlbumProps } from 'types';
-import { requestHelper } from 'utils';
+import { useCallback, useState, useEffect } from 'react'
+import { Button, Seo } from 'components'
+import { Accordion, AccordionTab } from 'primereact/accordion'
+import { Image } from 'primereact/image'
+import { useHistory, useParams } from 'react-router-dom'
+import { AlbumDetailsParams, AlbumProps } from 'types'
+import { requestHelper } from 'utils'
 
 const AlbumDetail = () => {
-  const [responseData, setResponnseData] = useState<AlbumProps>();
-  let rendered = true;
-  const history = useHistory();
-  const { id } = useParams<AlbumDetailsParams>();
+  const [responseData, setResponnseData] = useState<AlbumProps>()
+  let rendered = true
+  const history = useHistory()
+  const { id } = useParams<AlbumDetailsParams>()
 
   const handleLoadData = useCallback(async () => {
-    await requestHelper.get(`/albums/${id}`).then((res) => rendered && setResponnseData(res.data));
-  }, [id, rendered]);
+    await requestHelper.get(`/albums/${id}`).then((res) => rendered && setResponnseData(res.data))
+  }, [id, rendered])
 
   useEffect(() => {
-    handleLoadData();
+    handleLoadData()
 
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      rendered = false;
-    };
-  }, [handleLoadData]);
+      rendered = false
+    }
+  }, [handleLoadData])
 
   if (!responseData) {
-    return <div />;
+    return <div />
   }
 
   return (
@@ -68,7 +68,7 @@ const AlbumDetail = () => {
         </AccordionTab>
       </Accordion>
     </div>
-  );
-};
+  )
+}
 
-export default AlbumDetail;
+export default AlbumDetail

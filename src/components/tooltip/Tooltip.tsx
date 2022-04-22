@@ -1,5 +1,5 @@
-import { Tooltip } from 'primereact/tooltip';
-import { TooltipProps } from 'types';
+import { Tooltip } from 'primereact/tooltip'
+import { TooltipProps } from 'types'
 
 const CustomTooltip = ({ target, text, textslice, icon }: TooltipProps) => {
   return (
@@ -21,7 +21,7 @@ const CustomTooltip = ({ target, text, textslice, icon }: TooltipProps) => {
         </i>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default CustomTooltip;
+export default CustomTooltip

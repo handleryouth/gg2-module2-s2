@@ -1,16 +1,16 @@
-import { useRef } from 'react';
-import { Button } from 'components/button';
-import { Twirl as Hamburger } from 'hamburger-react';
-import { activateSidebar, addToken, RootState } from 'library';
-import { OverlayPanel } from 'primereact/overlaypanel';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { PAGE_LINKS } from 'utils';
+import { useRef } from 'react'
+import { Button } from 'components/button'
+import { Twirl as Hamburger } from 'hamburger-react'
+import { activateSidebar, addToken, RootState } from 'library'
+import { OverlayPanel } from 'primereact/overlaypanel'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { PAGE_LINKS } from 'utils'
 
 function Navbar() {
-  const reduxState = useSelector((state: RootState) => state);
-  const dispatch = useDispatch();
-  const panelRef = useRef<OverlayPanel>(null);
+  const reduxState = useSelector((state: RootState) => state)
+  const dispatch = useDispatch()
+  const panelRef = useRef<OverlayPanel>(null)
 
   return (
     <nav
@@ -38,7 +38,7 @@ function Navbar() {
                     {item.text}{' '}
                   </Link>
                 </li>
-              );
+              )
             })}
           </ul>
 
@@ -55,7 +55,7 @@ function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

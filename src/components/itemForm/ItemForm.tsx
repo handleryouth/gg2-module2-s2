@@ -1,13 +1,13 @@
-import { useRef } from 'react';
-import Button from 'components/button/Button';
-import Input from 'components/input/CustomInput';
-import { InputFormRef, ItemFormProps } from 'types';
+import { useRef } from 'react'
+import Button from 'components/button/Button'
+import Input from 'components/input/CustomInput'
+import { InputFormRef, ItemFormProps } from 'types'
 
 function ItemForm({ toggleSubmit, toggleCancel }: ItemFormProps) {
   const inputForm = useRef<InputFormRef>({
     uris: '',
     position: ''
-  });
+  })
   return (
     <div className="relative z-20" data-testid="item-form">
       <div className="fixed w-screen h-screen bg-black/50  top-0" />
@@ -35,7 +35,7 @@ function ItemForm({ toggleSubmit, toggleCancel }: ItemFormProps) {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default ItemForm;
+export default ItemForm

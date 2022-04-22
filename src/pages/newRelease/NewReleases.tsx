@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Card, Pagination, Seo } from 'components';
-import { motion } from 'framer-motion';
-import { slideLeftEntrance, slideLeftEntranceStaggered } from 'library';
-import { AlbumsResponseData } from 'types';
-import { requestHelper } from 'utils';
+import { useCallback, useEffect, useState } from 'react'
+import { Card, Pagination, Seo } from 'components'
+import { motion } from 'framer-motion'
+import { slideLeftEntrance, slideLeftEntranceStaggered } from 'library'
+import { AlbumsResponseData } from 'types'
+import { requestHelper } from 'utils'
 
 const NewReleases = () => {
   const [albums, setAlbums] = useState<AlbumsResponseData>({
@@ -11,9 +11,9 @@ const NewReleases = () => {
     total: 0,
     limit: 0,
     offset: 0
-  });
+  })
 
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(0)
 
   const handleGetData = useCallback(async () => {
     await requestHelper
@@ -24,13 +24,13 @@ const NewReleases = () => {
         }
       })
       .then((res) => {
-        setAlbums(res.data.albums);
-      });
-  }, [page]);
+        setAlbums(res.data.albums)
+      })
+  }, [page])
 
   useEffect(() => {
-    handleGetData();
-  }, [handleGetData]);
+    handleGetData()
+  }, [handleGetData])
 
   return (
     <div>
@@ -66,18 +66,18 @@ const NewReleases = () => {
           <Pagination
             page={page}
             handlePageChange={(e) => {
-              setPage(e.first);
+              setPage(e.first)
               window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
-              });
+              })
             }}
             resultsLength={albums.total}
           />
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NewReleases;
+export default NewReleases

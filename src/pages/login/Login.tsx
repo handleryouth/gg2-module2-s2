@@ -1,7 +1,7 @@
-import { Button, Seo } from 'components';
-import { motion } from 'framer-motion';
-import { slideLeftEntrance } from 'library';
-import { SPOTIFY_URL } from 'utils';
+import { Button, Seo } from 'components'
+import { motion } from 'framer-motion'
+import { slideLeftEntrance } from 'library'
+import { SPOTIFY_URL } from 'utils'
 
 function Login() {
   return (
@@ -19,6 +19,6 @@ function Login() {
       <p className="text-white">Please grant access to your spotify</p>
       <Button toggleFunction={() => (window.location.href = SPOTIFY_URL)}>Click here</Button>
     </motion.div>
-  );
+  )
 }
-export default Login;
+export default Login

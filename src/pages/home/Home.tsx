@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react'
 import {
   Button,
   Card,
@@ -8,31 +8,31 @@ import {
   SongList,
   CustomToast,
   Seo
-} from 'components';
-import { motion } from 'framer-motion';
-import { RootState, slideLeftEntrance, slideLeftEntranceStaggered } from 'library';
-import { Toast } from 'primereact/toast';
-import { useSelector } from 'react-redux';
-import { PlaylistProps, SpotifySearchResponse } from 'types';
-import { requestHelper } from 'utils';
+} from 'components'
+import { motion } from 'framer-motion'
+import { RootState, slideLeftEntrance, slideLeftEntranceStaggered } from 'library'
+import { Toast } from 'primereact/toast'
+import { useSelector } from 'react-redux'
+import { PlaylistProps, SpotifySearchResponse } from 'types'
+import { requestHelper } from 'utils'
 
 function Home() {
-  const [responseData, setResponseData] = useState<SpotifySearchResponse[]>([]);
-  const [selected, setSelected] = useState<PlaylistProps[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const toastRef = useRef<Toast>(null);
-  const page = useRef(0);
-  const [, setForceUpdate] = useState(false);
-  const userData = useSelector((state: RootState) => state.user);
-  const [createdPlaylist, setCreatedPlaylist] = useState<PlaylistProps[]>([]);
+  const [responseData, setResponseData] = useState<SpotifySearchResponse[]>([])
+  const [selected, setSelected] = useState<PlaylistProps[]>([])
+  const inputRef = useRef<HTMLInputElement>(null)
+  const toastRef = useRef<Toast>(null)
+  const page = useRef(0)
+  const [, setForceUpdate] = useState(false)
+  const userData = useSelector((state: RootState) => state.user)
+  const [createdPlaylist, setCreatedPlaylist] = useState<PlaylistProps[]>([])
 
   const handleToast = useCallback(({ severity, summary, detail }) => {
     toastRef.current!.show({
       severity: severity ?? 'success',
       summary: summary ?? 'Success',
       detail: detail ?? 'Success'
-    });
-  }, []);
+    })
+  }, [])
 
   const handleSearch = useCallback(async () => {
     await requestHelper
@@ -44,27 +44,27 @@ function Home() {
         }
       })
       .then((res) => {
-        page.current = 0;
-        setResponseData(res.data.tracks.items);
-      });
-  }, []);
+        page.current = 0
+        setResponseData(res.data.tracks.items)
+      })
+  }, [])
 
   const handleOnSubmitSuccess = useCallback(
     (res, formRef) => {
-      formRef.reset();
+      formRef.reset()
 
       handleToast({
         detail: 'Playlist created'
-      });
+      })
 
-      setCreatedPlaylist((prevState) => [...prevState, res.data]);
+      setCreatedPlaylist((prevState) => [...prevState, res.data])
     },
     [handleToast]
-  );
+  )
 
   const handleCreatePlayList = useCallback(
     async (event, value, formRef) => {
-      event.preventDefault();
+      event.preventDefault()
 
       await requestHelper
         .post(`/users/${userData.id}/playlists`, {
@@ -80,10 +80,10 @@ function Home() {
             summary: 'Playlist Error',
             detail: 'Something wrong. Please check again'
           })
-        );
+        )
     },
     [handleOnSubmitSuccess, handleToast, userData.id]
-  );
+  )
 
   return (
     <>
@@ -117,14 +117,14 @@ function Home() {
                 <motion.div key={item.id} variants={slideLeftEntrance}>
                   <Card
                     toggleSelected={() => {
-                      handleToast({ summary: 'Item added', detail: item.name });
+                      handleToast({ summary: 'Item added', detail: item.name })
                       setSelected((prevState) => [
                         ...prevState,
                         {
                           name: item.name,
                           id: item.id
                         }
-                      ]);
+                      ])
                     }}
                     allowSelect
                     selectCondition={selected.map((item) => item.id).includes(item.id)}
@@ -133,8 +133,8 @@ function Home() {
                         severity: 'error',
                         summary: 'Item removed',
                         detail: item.name
-                      });
-                      setSelected(selected.filter((song) => song.id !== item.id));
+                      })
+                      setSelected(selected.filter((song) => song.id !== item.id))
                     }}
                     id={item.id}
                     artist={item.artists}
@@ -144,7 +144,7 @@ function Home() {
                     totalTracks={item.track_number}
                   />
                 </motion.div>
-              );
+              )
             })}
           </motion.div>
         ) : (
@@ -156,12 +156,12 @@ function Home() {
             <Pagination
               page={page.current}
               handlePageChange={(e) => {
-                page.current = e.first;
+                page.current = e.first
                 window.scrollTo({
                   top: 0,
                   behavior: 'smooth'
-                });
-                setForceUpdate((prevState) => !prevState);
+                })
+                setForceUpdate((prevState) => !prevState)
               }}
               resultsLength={responseData.length}
             />
@@ -196,7 +196,7 @@ function Home() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

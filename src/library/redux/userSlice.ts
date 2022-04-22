@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { UserData } from 'types';
+import { createSlice } from '@reduxjs/toolkit'
+import { UserData } from 'types'
 
 const initialState: UserData = {
   display_name: '',
@@ -9,16 +9,16 @@ const initialState: UserData = {
   },
   images: [],
   id: ''
-};
+}
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
   reducers: {
     addUserProfile: (state, action) => {
-      return (state = action.payload);
+      return (state = action.payload)
     }
   }
-});
+})
 
-export const { addUserProfile } = userSlice.actions;
+export const { addUserProfile } = userSlice.actions

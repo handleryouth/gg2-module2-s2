@@ -1,11 +1,11 @@
-import { Tooltip } from 'components';
-import Button from 'components/button/Button';
-import Section from 'components/section/Section';
-import { motion } from 'framer-motion';
-import { Card } from 'primereact/card';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { useHistory } from 'react-router-dom';
-import { CustomCardProps } from 'types';
+import { Tooltip } from 'components'
+import Button from 'components/button/Button'
+import Section from 'components/section/Section'
+import { motion } from 'framer-motion'
+import { Card } from 'primereact/card'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { useHistory } from 'react-router-dom'
+import { CustomCardProps } from 'types'
 
 function CustomCard({
   image,
@@ -20,7 +20,7 @@ function CustomCard({
   selectCondition,
   allowSelect
 }: CustomCardProps) {
-  const history = useHistory();
+  const history = useHistory()
 
   return (
     <motion.div
@@ -47,7 +47,7 @@ function CustomCard({
                 <p className="my-0" key={index}>
                   {item.name}
                 </p>
-              );
+              )
             })}
           </div>
         }
@@ -70,7 +70,7 @@ function CustomCard({
         </div>
       </Card>
     </motion.div>
-  );
+  )
 }
 
-export default CustomCard;
+export default CustomCard

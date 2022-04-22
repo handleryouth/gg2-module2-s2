@@ -1,14 +1,14 @@
-import { useEffect, useCallback } from 'react';
-import { Layout } from 'components';
-import { addToken, addUserProfile, RootState, routesDirectory } from 'library';
-import { Login } from 'pages';
-import { useSelector, useDispatch } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { requestHelper } from 'utils';
+import { useEffect, useCallback } from 'react'
+import { Layout } from 'components'
+import { addToken, addUserProfile, RootState, routesDirectory } from 'library'
+import { Login } from 'pages'
+import { useSelector, useDispatch } from 'react-redux'
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { requestHelper } from 'utils'
 
 const App = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state: RootState) => state.token);
+  const dispatch = useDispatch()
+  const token = useSelector((state: RootState) => state.token)
 
   const handleGetUserProfile = useCallback(
     async (value) => {
@@ -18,10 +18,10 @@ const App = () => {
             Authorization: `Bearer ${value}`
           }
         })
-        .then((res) => dispatch(addUserProfile(res.data)));
+        .then((res) => dispatch(addUserProfile(res.data)))
     },
     [dispatch]
-  );
+  )
 
   const tokenValue =
     window.location.hash &&
@@ -29,13 +29,13 @@ const App = () => {
       .substring(1)
       .split('&')
       .find((elem) => elem.startsWith('access_token'))!
-      .replace('access_token=', '');
+      .replace('access_token=', '')
 
   useEffect(() => {
     if (tokenValue) {
-      handleGetUserProfile(tokenValue).then(() => dispatch(addToken(tokenValue)));
+      handleGetUserProfile(tokenValue).then(() => dispatch(addToken(tokenValue)))
     }
-  }, [dispatch, handleGetUserProfile, tokenValue]);
+  }, [dispatch, handleGetUserProfile, tokenValue])
 
   return (
     <div className="prose !min-w-[320px] !max-w-none bg-[#1c1b22]">
@@ -62,7 +62,7 @@ const App = () => {
         )}
       </>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

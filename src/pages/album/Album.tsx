@@ -1,22 +1,22 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Card, Input, Pagination, Seo } from 'components';
-import { motion } from 'framer-motion';
-import { slideLeftEntrance, slideLeftEntranceStaggered } from 'library';
-import { AlbumsResponseData } from 'types';
-import { requestHelper, useDebounce } from 'utils';
+import { useEffect, useState, useCallback } from 'react'
+import { Card, Input, Pagination, Seo } from 'components'
+import { motion } from 'framer-motion'
+import { slideLeftEntrance, slideLeftEntranceStaggered } from 'library'
+import { AlbumsResponseData } from 'types'
+import { requestHelper, useDebounce } from 'utils'
 
 const Albums = () => {
-  const [search, setSearch] = useState('');
-  let rendered = true;
+  const [search, setSearch] = useState('')
+  let rendered = true
   const [responseData, setResponseData] = useState<AlbumsResponseData>({
     items: [],
     total: 0,
     limit: 0,
     offset: 0
-  });
+  })
 
-  const [page, setPage] = useState(0);
-  const debounce = useDebounce();
+  const [page, setPage] = useState(0)
+  const debounce = useDebounce()
 
   const handleLoadData = useCallback(async () => {
     await requestHelper
@@ -28,17 +28,17 @@ const Albums = () => {
           offset: page
         }
       })
-      .then((res) => rendered && setResponseData(res.data.albums));
-  }, [page, rendered, search]);
+      .then((res) => rendered && setResponseData(res.data.albums))
+  }, [page, rendered, search])
 
   useEffect(() => {
-    handleLoadData();
+    handleLoadData()
 
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      rendered = false;
-    };
-  }, [handleLoadData]);
+      rendered = false
+    }
+  }, [handleLoadData])
 
   return (
     <>
@@ -80,15 +80,15 @@ const Albums = () => {
           <Pagination
             page={page}
             handlePageChange={(e) => {
-              window.scroll({ top: 0, behavior: 'smooth' });
-              setPage(e.first);
+              window.scroll({ top: 0, behavior: 'smooth' })
+              setPage(e.first)
             }}
             resultsLength={Math.floor(responseData.total / 10)}
           />
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Albums;
+export default Albums

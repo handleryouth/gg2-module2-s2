@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import Button from 'components/button/Button';
-import { Dialog } from 'primereact/dialog';
-import { SongListProps } from 'types';
+import { useState } from 'react'
+import Button from 'components/button/Button'
+import { Dialog } from 'primereact/dialog'
+import { SongListProps } from 'types'
 
 function SongList({ selectedSongs, setSelected }: SongListProps) {
-  const [hide, setHide] = useState(false);
+  const [hide, setHide] = useState(false)
 
   return hide ? (
     <Dialog
@@ -44,7 +44,7 @@ function SongList({ selectedSongs, setSelected }: SongListProps) {
     <div className="bg-black z-10  fixed bottom-20 right-3 rounded p-2 flex justify-end flex-col prose">
       <Button toggleFunction={() => setHide(true)}>Open list</Button>
     </div>
-  );
+  )
 }
 
-export default SongList;
+export default SongList

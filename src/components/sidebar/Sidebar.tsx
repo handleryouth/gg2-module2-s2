@@ -1,19 +1,19 @@
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 import {
   addToken,
   deactivateSidebar,
   RootState,
   slideLeftEntrance,
   slideLeftEntranceStaggered
-} from 'library';
-import { Sidebar } from 'primereact/sidebar';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { PAGE_LINKS } from 'utils';
+} from 'library'
+import { Sidebar } from 'primereact/sidebar'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { PAGE_LINKS } from 'utils'
 
 const SidebarComponent = () => {
-  const { isOpen } = useSelector((state: RootState) => state.sidebar);
-  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state: RootState) => state.sidebar)
+  const dispatch = useDispatch()
 
   return (
     <Sidebar
@@ -48,7 +48,7 @@ const SidebarComponent = () => {
         </motion.li>
       </motion.ul>
     </Sidebar>
-  );
-};
+  )
+}
 
-export default SidebarComponent;
+export default SidebarComponent
