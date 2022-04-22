@@ -4,7 +4,15 @@ module.exports = {
   webpack: {
     optimization: {
       minimize: true,
-      minimizer: [new TerserPlugin()]
+      minimizer: [
+        new TerserPlugin({
+          minify: TerserPlugin.swcMinify
+        })
+      ],
+      runtimeChunk: true,
+      removeAvailableModules: false,
+      removeEmptyChunks: false,
+      splitChunks: false
     },
     alias: {
       react: 'preact/compat',
