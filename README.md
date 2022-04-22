@@ -26,11 +26,11 @@ npx husky add .husky/pre-commit "your scripts here"
 To run the application on the development server, keep in mind that this application can use 2 commands, namely 
 ```yarn start``` and ```yarn dev```. but for better results and formatting needs, it is highly recommended to use ```yarn dev```. if you feel uncomfortable, feel free to change the script in package.json
 ```bash
-    "start": "react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "test:watch": "react-scripts test",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject ",
+    "start": "craco start",
+    "build": "cross-env GENERATE_SOURCEMAP=false craco build",
+    "test:watch": "craco test",
+    "test": "craco test --coverage --watchAll=false",
+    "eject": "craco eject ",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
     "format": "yarn prettier --write src/",
     "husky-install": "husky install",
@@ -53,9 +53,14 @@ example: <br>
 favicon image: <br>
 ![image](https://user-images.githubusercontent.com/70279376/164520614-56cd4a7e-1156-410c-9978-ef6051d2c3f3.png)<br>
 ![favicon-96x96](https://user-images.githubusercontent.com/70279376/164502561-908d430d-a5d4-489d-9995-8059d2654de4.png)
-- Added lazy image feature to improve performance on cards used to show albums/tracks. which is where the image will not be loaded until the user reaches the image.
+- Added lazy image feature to improve performance on cards used to show albums/tracks. which is where the image will not be loaded until the user reaches the image. 
+
+https://user-images.githubusercontent.com/70279376/164706906-aaf9af08-d7da-4577-910a-8bd2e9abd892.mp4
+
+
 - The use of framer motion for animation such as stagger children or changing the opacity and position of objects. This is most visible on the cards displayed on the page and sidebar
-- Unit testing uses msw (mock service worker). you can see the implementation of Custom Card.test.tsx or in PlaylistList.test.tsx
+- Unit testing uses msw (mock service worker). you can see the implementation of ```CustomCard.test.tsx``` or in ```PlaylistList.test.tsx```
+![image](https://user-images.githubusercontent.com/70279376/164706517-74e0afbd-9d1f-4218-8d8c-bf5f60c63888.png)
 - There is pagination which can provide the ability to limit the number of responses from the spotify api. This pagination follows the number of songs provided by spotify or provided by the developer
 - In the playlist creation section, users can select and delete the songs they have selected again. there is a small button on the lower right side that serves to show what songs the user has selected and if the user wants to delete all of them or one by one
 ![image](https://user-images.githubusercontent.com/70279376/164505369-50655b53-c6ee-45d4-add9-d2af020b42cd.png)
@@ -82,9 +87,13 @@ https://user-images.githubusercontent.com/70279376/164517709-54181ade-5992-44ca-
 
 https://user-images.githubusercontent.com/70279376/164518448-c6650653-7d7c-43d3-88bd-64afb0894f20.mp4
 
+- This website covers all mobile devices up to a size of 320px
+![image](https://user-images.githubusercontent.com/70279376/164707215-92243147-c2fb-4400-84b5-23857f217ecd.png)
 
 ## Added Features (For Developers)
 There are several features added to this React application that can make it easier for developers to develop in the future
-- Husky : There is a husky that has been configured in this application so that when the user commits, before the commit occurs, certain scripts will be executed. in this application, prettier-quick and eslint fix are installed as formatters and testing is run that shows coverage and what tests pass
+- Husky : There is a husky that has been configured in this application so that when the user commits, before the commit occurs, certain scripts will be executed. in this application, prettier and eslint fix are installed as formatters and testing is run that shows coverage and what tests pass
 - eslint-plugin-import : Used to sort the existing imports in React. for documentation of this plugin can be seen [here](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md)
 - commitizen : Used to help developers write commit messages according to conventions. Documentation can be accessed [here](https://github.com/commitizen/cz-cli)
+- craco : Used to convert React production build into preact using ```preact/compat``` without ejecting the react itself. with the help of craco, i also customise the webpack a little bit by adding ```terser-webpack-plugin```. Documentation can be accessed [here](https://github.com/gsoft-inc/craco)
+- redux-persist: specifically to store data from users and tokens from users in localstorage. suitable for storing crucial data. Documentation can be accessed [here](https://github.com/rt2zz/redux-persist)
