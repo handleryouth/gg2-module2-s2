@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@fontsource/inter": "^4.5.5",
     "@reduxjs/toolkit": "^1.8.1",
     "@tailwindcss/typography": "^0.5.2",
@@ -28,11 +29,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-    "test:watch": "react-scripts test",
-    "test": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject ",
+    "start": "craco start",
+    "build": "cross-env GENERATE_SOURCEMAP=false craco build",
+    "test:watch": "craco test",
+    "test": "craco test --coverage --watchAll=false",
+    "eject": "craco eject ",
     "fix": "eslint  ./ --ext js,jsx,ts,tsx",
     "format": "yarn prettier --write src/",
     "husky-install": "husky install",
